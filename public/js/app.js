@@ -25,8 +25,8 @@ function addData(data) {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
             success: function(data, status, jqXHR) {
-                console.log("success!");
-                alert(success);
+                console.log(status);
+
 
             },
             error: function(jqXHR, status) {
