@@ -12,46 +12,46 @@ $(function() {
         });
 
         //console.log(data);
-        
+
     });
 
 });
 
 function addData(data) {
-        $.ajax({
-            url: 'http://localhost:8080/posts',
-            dataType: 'json',
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-            success: function(data, status, jqXHR) {
-                console.log(status);
+    $.ajax({
+        url: 'http://localhost:8080/posts',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data),
+        success: function(data, status, jqXHR) {
+            console.log(status);
 
 
-            },
-            error: function(jqXHR, status) {
-                console.log(jqXHR);
-                alert('fail' + status.code);
-            }
-        });
-    }
+        },
+        error: function(jqXHR, status) {
+            console.log(jqXHR);
+            alert('fail' + status.code);
+        }
+    });
+}
 
 var form = document.getElementById("user-post");
 
-    form.addEventListener('submit', function() {
-    	var data = {};
-      
-      for (var i = 0, ii = form.length; i < ii; ++i) {
+form.addEventListener('submit', function() {
+    var data = {};
+
+    for (var i = 0, ii = form.length; i < ii; ++i) {
         var input = form[i];
         if (input.name) {
-          data[input.name] = input.value;
+            data[input.name] = input.value;
         }
-      }
-      addData(data);
-    })
+    }
+    addData(data);
+})
 
-      
-      
+
+
 
 console.log(document);
 $(function() {
@@ -71,6 +71,5 @@ $(function() {
             }
         });
     }
-    
-})
 
+})
