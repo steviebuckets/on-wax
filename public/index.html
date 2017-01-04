@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text/css" href="main.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <head>
-	<title>On-Wax</title>
+    <title>On-Wax</title>
 </head>
+
 <body>
-
-<header><h1>On Wax</h1></header>
-<!--user upload form -->
-
-
-<!-- post results -->
-<section>
-	<h1></h1>
-	<h2></h2>
-	<p></p>
-</section>
+    <header>
+        <h1>On Wax</h1></header>
+    <!--user upload form -->
+    <div>
+        <form action="/" id="user-post">
+            <label for="username">User Name:</label>
+            <input type="text" id="author" name="author"><br>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title"><br>
+            <label for="title">Record Store:</label>
+            <input type="text" id="recordstore" name="title"><br>
+            <label for="post">Description:</label>
+            <input type="text" id="description" name="content">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <!-- post results -->
+    <section>
+        <h1></h1>
+        <h2></h2>
+        <p></p>
+    </section>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
+
 </html>
