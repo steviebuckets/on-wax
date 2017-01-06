@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.get('/posts', (req, res) => {
     BlogPost
         .find()
-        .limit(16)
+        .limit(8)
         .exec()
         .then(posts => {
             res.json({

@@ -1,8 +1,37 @@
+
+* { box-sizing: border-box; }
+
+.grid {
+  background: #EEE;
+  
+
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+
+.grid-item { 
+  float: left;
+  width: 60px;
+ 
+}
+
+
+
 div {
 	text-align: center;
 
 }
 
-input, #description {
 
+
+h2 {
+	text-align: center;
+	padding-top: 10px;
 }
+
