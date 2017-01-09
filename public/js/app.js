@@ -2,42 +2,40 @@
 $(function() {
     $.getJSON('/posts', function(data) {
 
+        var $grid = $('.grid').masonry({
 
-        $.each(data.posts, function(i, data) {
-
-            var div_data =
-                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>  <p class='date'>" + data.created + "</div>";
-
-
-            //append data to new div
-            var $items = $('<div class="grid-item"></div>');
-
-
-
-
-
-            $('.grid').prepend($items);
-            $('.grid-item').append(div_data);
-
-
-
-            // $grid.masonry('reloadItems')
-
-            // add and lay out newly prepended items
-            //.masonry('prepended', $items);
+            itemSelector: '.grid-item',
+            columnWidth: 160
 
         });
 
 
+        $.each(data.posts, function(i, data) {
+            var div_data =
+                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "</div>";
+
+            var $items = $('<div class="grid-item"></div>');
+            ($items).append(div_data);
+            $('.grid').prepend($items);
+
+
+            
+
+            // add and lay out newly prepended items
+            $grid.masonry('reloadItems')
+            .masonry('prepended', $items);
+
+        });
 
 
         // init Isotope
-        var $grid = $('.grid-item').isotope({
+        var $grid = $('.grid').isotope({
+
             getSortData: {
                 created: '[.date]',
                 dated: function(itemElem) {
                         var dated = $(itemElem).find('.date');
-                        return dated;
+
                     } // text from querySelector
 
             }
@@ -62,10 +60,13 @@ $(function() {
         }
 
         addData(data);
+        $("#user-posts")[0].reset();
+
     });
 
     //sends data from post to server
     function addData(data) {
+
         $.ajax({
             url: '/posts',
             dataType: 'json',
