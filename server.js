@@ -16,7 +16,8 @@ app.use(bodyParser.json());
 app.get('/posts', (req, res) => {
     BlogPost
         .find()
-        .limit(8)
+        .sort({created: -1})
+        .limit(9)
         .exec()
         .then(posts => {
             res.json({
