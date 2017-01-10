@@ -4,7 +4,7 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + '<p class="title">' + data.title + "</p><br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "</div>";
+                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "</div>";
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
