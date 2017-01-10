@@ -4,7 +4,7 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "<br/>" + '<button type="submit" class="btn btn-secondary btn-sm">Delete</button>' + "</div>";
+                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "<br/>" + '<button type="button" class="btn btn-secondary btn-xs">Delete</button>' + "</div>";
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
@@ -33,6 +33,34 @@ $(function() {
 
 
     });
+
+    //this deletes a post
+    function deletePost(data) {
+
+        $.ajax({
+            url: '/posts',
+            dataType: 'json',
+            type: 'POST',
+            id: this._id,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            success: function(responseData, status, jqXHR) {
+                console.log(responseData);
+
+                var div_data =
+                    '<div class="col-md-4">' + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
+
+                $('.btn').click(function() {
+                    $(this).removeAttr('POST');
+                });
+            },
+            error: function(jqXHR, status) {
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+
 
     //sends data from post to server
     function addData(data) {
