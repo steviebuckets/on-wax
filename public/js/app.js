@@ -2,29 +2,23 @@
 $(function() {
     $.getJSON('/posts', function(data) {
 
-        
-
         $.each(data.posts, function(i, data) {
             var div_data =
                 "<div>" + '<p class="title">' + data.title + "</p><br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "</div>";
 
-           var $items = $('<div class="col-md-4"></div');
+            var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
-            
+
             $('.row').append($items);
-                
+
 
         });
-
-
-      
-
 
     });
 
 
     //this creates a new post on submit from user-posts form.
-    $('.form-group').submit(function(event) {
+    $('.form-inline').submit(function(event) {
         event.preventDefault();
         var data = {
             user: $('#user').val(),
@@ -34,7 +28,9 @@ $(function() {
         }
 
         addData(data);
-        $('.form-group')[0].reset();
+        $('.form-inline')[0].reset();
+          location.reload();
+
 
     });
 
@@ -51,9 +47,9 @@ $(function() {
                 console.log(responseData);
 
                 var div_data =
-                    '<div class="col-6 col-md-4">' + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
+                    '<div class="col-md-4">' + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
 
-                $('.grid').append(div_data);
+                $('.row').append(div_data);
             },
             error: function(jqXHR, status) {
                 console.log(jqXHR);
