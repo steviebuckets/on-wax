@@ -4,13 +4,13 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "</div>";
+                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/> <p class='date'>" + data.created + "<br/>" + '<button type="submit" class="btn btn-secondary btn-sm">Delete</button>' + "</div>";
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
 
             $('.row').append($items);
-
+                                                                                  
 
         });
 
