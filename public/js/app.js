@@ -4,34 +4,52 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + "<br/> <p class='tag' data-id=['_id']> + data.id + </p>" +"<br/>" + '<button type="button" class="btn btn-secondary btn-xs">Delete</button>' + "</div>";
+                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="'+data.id+'" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
 
             $('.row').append($items);
-             $('.btn').click(delete_post);
 
         });
 
-        //deletes post
-        
-           
-   
     });
 
-//delete post function
-function delete_post() {
-    var id = $(this).attr('data-id');
-    jQuery.ajax({
-        url: '/posts',
-        id: this._id,
-        type: 'DELETE',
-        success: function(data) {
-            show_items();
-        }
-    });
-}
+    //delete posts
+    $('body').on('click', '.btn-delete', function(event) {
+
+                event.preventDefault();
+                var self = $(this); // $(this).parent().remove()
+                jQuery.ajax({
+                    url: '/posts/' + this.id,
+                    type: 'DELETE',
+                    success: function(data) {
+                        // this has "function" connotations
+                        console.log(this, self);
+                        self.parent().parent().remove();
+                        // console.log(data);
+                        // show_items();
+                        // location.reload();
+                        // $(this).remove();
+                    }
+                });
+
+            })
+    /*//delete post function
+    function delete_post(postId) {
+        // data() method in jquery where in HTLM data-something="whatever"
+        //  $(this).data("something")
+        // var id = $(this).attr('#data-id');
+        // $(this).data('id');
+        jQuery.ajax({
+            url: '/posts/' + postId,
+            type: 'DELETE',
+            success: function(data) {
+                console.log(data);
+                // show_items();
+            }
+        });
+    }*/
 
 
 
@@ -47,12 +65,12 @@ function delete_post() {
 
         addData(data);
         $('.form-inline')[0].reset();
-          location.reload();
+        location.reload();
 
 
     });
 
-   
+
 
     //sends data from post to server
     function addData(data) {

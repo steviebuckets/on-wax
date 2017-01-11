@@ -99,7 +99,7 @@ app.delete('/posts/:id', (req, res) => {
     BlogPost
         .findByIdAndRemove(req.params.id)
         .exec()
-        .then(blogPost => res.status(204).end())
+        .then(blogPost => res.json({message: "Steve rocks!!"}))//res.status(204).end())
         .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
