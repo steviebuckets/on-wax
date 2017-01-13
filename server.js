@@ -1,7 +1,11 @@
+var dotenv = require('dotenv');
+dotenv.load();
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-//const Upload = require('s3-uploader');
+const cloudinary = require('cloudinary');
+
 
 mongoose.Promise = global.Promise;
 
@@ -12,11 +16,21 @@ const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+/*cloudinary.config({cloud_name: 'dbkrpg9qe', api_key: '728382151172862', api_secret: 'QT9eS0jTt1cyg7PZM-DTjfSPUSE'});*/
+
+// File upload
+/*app.post('/uploads', function(req, res){
+  var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary' });
+   cloudStream = cloudinary.uploader.upload_stream(function() { res.redirect('/'); });
+
+  imageStream.on('data', cloudStream.write).on('end', cloudStream.end);
+});*/
+
 //get posts
 app.get('/posts', (req, res) => {
     BlogPost
         .find()
-        .sort({created: -1})
+        .sort({ created: -1 })
         .limit(9)
         .exec()
         .then(posts => {
@@ -44,9 +58,10 @@ app.get('/posts/:id', (req, res) => {
         });
 });
 
-//new posts
+//New Blog Posts
 app.post('/posts', (req, res) => {
-    const requiredFields = ['title', 'recordstore', 'description', 'user'];
+    console.log(req);
+    const requiredFields = ['img', 'title', 'recordstore', 'description', 'user'];
     requiredFields.forEach(field => {
         if (!(field in req.body && req.body[field])) {
             return res.status(400).json({ message: `Must specify value for ${field}` });
@@ -54,6 +69,7 @@ app.post('/posts', (req, res) => {
     });
     BlogPost
         .create({
+            img: req.body.img,
             title: req.body.title,
             recordstore: req.body.recordstore,
             description: req.body.description,
@@ -66,6 +82,9 @@ app.post('/posts', (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         });
 });
+
+
+
 
 //put/update
 app.put('/posts/:id', (req, res) => {
@@ -99,7 +118,7 @@ app.delete('/posts/:id', (req, res) => {
     BlogPost
         .findByIdAndRemove(req.params.id)
         .exec()
-        .then(blogPost => res.json({message: "Steve rocks!!"}))//res.status(204).end())
+        .then(blogPost => res.json({ message: "Steve rocks!!" })) //res.status(204).end())
         .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
@@ -145,6 +164,8 @@ function closeServer() {
     });
 
 }
+
+
 
 
 

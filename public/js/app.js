@@ -4,7 +4,7 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="'+data.id+'" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
+                "<div>" + data.img + "<br/>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="'+data.id+'" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
@@ -15,6 +15,7 @@ $(function() {
 
     });
 
+    
     //delete posts
     $('body').on('click', '.btn-delete', function(event) {
 
@@ -33,37 +34,28 @@ $(function() {
                         // $(this).remove();
                     }
                 });
-
+  
+   
             })
-    /*//delete post function
-    function delete_post(postId) {
-        // data() method in jquery where in HTLM data-something="whatever"
-        //  $(this).data("something")
-        // var id = $(this).attr('#data-id');
-        // $(this).data('id');
-        jQuery.ajax({
-            url: '/posts/' + postId,
-            type: 'DELETE',
-            success: function(data) {
-                console.log(data);
-                // show_items();
-            }
-        });
-    }*/
 
 
 
     //this creates a new post on submit from user-posts form.
     $('.form-inline').submit(function(event) {
         event.preventDefault();
-        var data = {
+        /*var data = {
+            img: $('.cloudinary-fileupload').val(),
             user: $('#user').val(),
             title: $('#title').val(),
             description: $('#description').val(),
             recordstore: $('#recordstore').val()
-        }
+        }*/
+        var form = $('form');
+        var formData = new FormData(form);
 
-        addData(data);
+
+        addData(formData);
+        $('.row').append(form);
         $('.form-inline')[0].reset();
         location.reload();
 
@@ -85,7 +77,7 @@ $(function() {
                 console.log(responseData);
 
                 var div_data =
-                    '<div class="col-md-4">' + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
+                    '<div class="col-md-4">' + responseData.img + "<br/>" + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
 
                 $('.row').append(div_data);
             },
