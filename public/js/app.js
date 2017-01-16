@@ -4,7 +4,7 @@ $(function() {
 
         $.each(data.posts, function(i, data) {
             var div_data =
-                "<div>" + data.img + "<br/>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="'+data.id+'" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
+                "<div>" + data.file + "<br/>" + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="'+data.id+'" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
 
             var $items = $('<div class="col-md-4"></div');
             $items.append(div_data)
@@ -43,13 +43,13 @@ $(function() {
     //this creates a new post on submit from user-posts form.
     $('.form-inline').submit(function(event) {
         event.preventDefault();
-        /*var data = {
-            img: $('.cloudinary-fileupload').val(),
+        var data = {
+            file: $('#file').val('url'),
             user: $('#user').val(),
             title: $('#title').val(),
             description: $('#description').val(),
             recordstore: $('#recordstore').val()
-        }*/
+        }
         var form = $('form');
         var formData = new FormData(form);
 
@@ -77,7 +77,7 @@ $(function() {
                 console.log(responseData);
 
                 var div_data =
-                    '<div class="col-md-4">' + responseData.img + "<br/>" + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
+                    '<div class="col-md-4">' + responseData.file + "<br/>" + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
 
                 $('.row').append(div_data);
             },

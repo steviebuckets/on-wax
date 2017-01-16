@@ -60,8 +60,10 @@ app.get('/posts/:id', (req, res) => {
 
 //New Blog Posts
 app.post('/posts', (req, res) => {
-    console.log(req);
-    const requiredFields = ['img', 'title', 'recordstore', 'description', 'user'];
+    /* console.log(req);*/
+    cloudinary.uploader.unsigned_image_upload_tag('photo', 'k9gdegt1', { cloud_name: 'dbkrpg9qe', tags: 'test_upload' });
+
+    const requiredFields = ['file', 'title', 'recordstore', 'description', 'user'];
     requiredFields.forEach(field => {
         if (!(field in req.body && req.body[field])) {
             return res.status(400).json({ message: `Must specify value for ${field}` });
@@ -69,7 +71,7 @@ app.post('/posts', (req, res) => {
     });
     BlogPost
         .create({
-            img: req.body.img,
+            file: req.body.file,
             title: req.body.title,
             recordstore: req.body.recordstore,
             description: req.body.description,
