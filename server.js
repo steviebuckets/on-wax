@@ -1,5 +1,5 @@
-var dotenv = require('dotenv');
-dotenv.load();
+/*var dotenv = require('dotenv');
+dotenv.load();*/
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -14,17 +14,11 @@ const { BlogPost } = require('./models');
 
 const app = express();
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-/*cloudinary.config({cloud_name: 'dbkrpg9qe', api_key: '728382151172862', api_secret: 'QT9eS0jTt1cyg7PZM-DTjfSPUSE'});*/
 
-// File upload
-/*app.post('/uploads', function(req, res){
-  var imageStream = fs.createReadStream(req.files.image.path, { encoding: 'binary' });
-   cloudStream = cloudinary.uploader.upload_stream(function() { res.redirect('/'); });
 
-  imageStream.on('data', cloudStream.write).on('end', cloudStream.end);
-});*/
 
 //get posts
 app.get('/posts', (req, res) => {
@@ -61,17 +55,32 @@ app.get('/posts/:id', (req, res) => {
 //New Blog Posts
 app.post('/posts', (req, res) => {
     /* console.log(req);*/
-    cloudinary.uploader.unsigned_image_upload_tag('photo', 'k9gdegt1', { cloud_name: 'dbkrpg9qe', tags: 'test_upload' });
+   /*var image = cloudinary.uploader.unsigned_image_upload_tag('image', 'k9gdegt1', { cloud_name: 'dbkrpg9qe', tags: 'test_upload' });*/
+  /* const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
 
-    const requiredFields = ['file', 'title', 'recordstore', 'description', 'user'];
-    requiredFields.forEach(field => {
+    
+    requiredFields.some(function(element, index, field) {
         if (!(field in req.body && req.body[field])) {
             return res.status(400).json({ message: `Must specify value for ${field}` });
         }
+
+        else return true;
+        
+        });*/
+        console.log('hi');
+        console.log(req.body);
+    const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
+   // start for each func
+    requiredFields.some(field => {
+        if (!(field in req.body && req.body[field])) {
+            return res.status(400).json({ message: `Must specify value for ${field}` });
+        }
+        else return true;
     });
+    //create blogpost if required fields are met
     BlogPost
         .create({
-            file: req.body.file,
+            image: req.body.image,
             title: req.body.title,
             recordstore: req.body.recordstore,
             description: req.body.description,

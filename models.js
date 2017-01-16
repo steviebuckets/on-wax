@@ -8,7 +8,8 @@ const blogPostsSchema = mongoose.Schema({
     "description": { type: String, required: true },
     "user": { type: String, required: true },
     // buffer cloudinary/s3 -> store this stuff for -> they give you a URL "s3.amazong.slj.png"
-    "file": {type: String, required: true},
+    "image": {type: String, required: true},
+    "image_id": {type: String},
     "created": { type: Date, default: Date.now, required: true }
 });
 
@@ -19,7 +20,7 @@ blogPostsSchema.methods.apiRepr = function() {
         recordstore: this.recordstore,
         description: this.description,
         user: this.user,
-        file: this.file,
+        image: this.image,
         created: this.created
     };
 }
