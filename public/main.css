@@ -33,3 +33,26 @@ h2 {
 .row, .col-md-4 {
 	padding-bottom: 2em;
 }
+
+.form-group-upload{
+  vertical-align: middle;
+}
+
+#uploaded{
+vertical-align: middle;
+
+}
+
+/*.form-group, h1{
+    display: none;
+}*/
+
+.center-button{
+    text-align: center;
+}
+
+.container-1{
+    display: none;
+}
+
+

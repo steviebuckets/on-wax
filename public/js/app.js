@@ -1,5 +1,33 @@
 //document ready, retrieves posts from server and appends them to a div
 $(function() {
+
+    $("#new").click(function() { 
+    // assumes element with id='button'
+    $(".container-1").show();
+    $('.container-2').hide();
+
+    $('.form-post').submit(function(event) {
+        event.preventDefault();
+        $(".container-1").hide();
+       $('.container-2').show();
+        var data = {
+            image: $('#url').data('url'),
+            user: $('#user').val(),
+            title: $('#title').val(),
+            description: $('#description').val(),
+            recordstore: $('#recordstore').val()
+        }
+
+        addData(data);
+        $('.form-post')[0].reset();
+        location.reload();
+
+    });
+
+   
+});
+
+     
     $.getJSON('/posts', function(data) {
 
         $.each(data.posts, function(i, data) {
@@ -56,12 +84,7 @@ $(function() {
         });
 
 
-
-
-
-
-
-    $('.form-inline').submit(function(event) {
+    /*$('.form-inline').submit(function(event) {
         event.preventDefault();
         var data = {
             image: $('#url').data('url'),
@@ -75,7 +98,7 @@ $(function() {
         $('.form-inline')[0].reset();
         location.reload();
 
-    });
+    });*/
 
 
 
@@ -103,7 +126,10 @@ $(function() {
             }
         });
 
+
+
     }
+   
 
 
 });
