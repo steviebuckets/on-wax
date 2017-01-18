@@ -39,27 +39,22 @@ $(function() {
     })
 
 
-
+    
     //this creates a new post on submit from user-posts form.
-    $('#uploaded').unsigned_cloudinary_upload('k9gdegt1', { cloud_name: 'dbkrpg9qe', tags: 'test_upload' }, { multiple: false })
+    $('#uploaded').unsigned_cloudinary_upload('k9gdegt1', { cloud_name: 'dbkrpg9qe'}, { multiple: true })
         .bind('cloudinarydone', function(e, data) {
-            var opts = {
-                format: 'jpg',
-                width: 5,
-                height: 5,
-                crop: 'thumb',
-                gravity: 'face',
-                effect: 'saturation:50'
-            };
-            // write another "submit"
+
             var version = data.result.version;
             var public_id = data.result.public_id;
             var imageUrl = "http://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
+
             /// ideas on how to hide it in plain sight? data-attribute
+            
             $('#url').data('url', imageUrl);
             console.log(imageUrl);
         });
+
 
 
 
@@ -78,7 +73,7 @@ $(function() {
 
         addData(data);
         $('.form-inline')[0].reset();
-        // location.reload();
+        location.reload();
 
     });
 

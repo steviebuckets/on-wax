@@ -25,7 +25,7 @@ app.get('/posts', (req, res) => {
     BlogPost
         .find()
         .sort({ created: -1 })
-        .limit(9)
+        .limit(12)
         .exec()
         .then(posts => {
             res.json({
