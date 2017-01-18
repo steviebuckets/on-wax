@@ -1,33 +1,31 @@
 //document ready, retrieves posts from server and appends them to a div
 $(function() {
+    //New Post Button On Click
+    $("#new").click(function() {
+        // assumes element with id='button'
+        $(".container-1").show();
+        $('.container-2').hide();
 
-    $("#new").click(function() { 
-    // assumes element with id='button'
-    $(".container-1").show();
-    $('.container-2').hide();
+        //New Form Post
+        $('.form-post').submit(function(event) {
+            event.preventDefault();
+            $(".container-1").hide();
+            $('.container-2').show();
+            var data = {
+                image: $('#url').data('url'),
+                user: $('#user').val(),
+                title: $('#title').val(),
+                description: $('#description').val(),
+                recordstore: $('#recordstore').val()
+            }
 
-    $('.form-post').submit(function(event) {
-        event.preventDefault();
-        $(".container-1").hide();
-       $('.container-2').show();
-        var data = {
-            image: $('#url').data('url'),
-            user: $('#user').val(),
-            title: $('#title').val(),
-            description: $('#description').val(),
-            recordstore: $('#recordstore').val()
-        }
+            addData(data);
+            $('.form-post')[0].reset();
+            location.reload();
 
-        addData(data);
-        $('.form-post')[0].reset();
-        location.reload();
-
+        });
     });
 
-   
-});
-
-     
     $.getJSON('/posts', function(data) {
 
         $.each(data.posts, function(i, data) {
@@ -43,12 +41,11 @@ $(function() {
 
     });
 
-
     //delete posts
     $('body').on('click', '.btn-delete', function(event) {
 
         event.preventDefault();
-        var self = $(this); // $(this).parent().remove()
+        var self = $(this);
         jQuery.ajax({
             url: '/posts/' + this.id,
             type: 'DELETE',
@@ -56,20 +53,13 @@ $(function() {
                 // this has "function" connotations
                 console.log(this, self);
                 self.parent().parent().remove();
-                // console.log(data);
-                // show_items();
-                // location.reload();
-                // $(this).remove();
+
             }
         });
-
-
     })
 
-
-    
     //this creates a new post on submit from user-posts form.
-    $('#uploaded').unsigned_cloudinary_upload('k9gdegt1', { cloud_name: 'dbkrpg9qe'}, { multiple: true })
+    $('#uploaded').unsigned_cloudinary_upload('k9gdegt1', { cloud_name: 'dbkrpg9qe' }, { multiple: true })
         .bind('cloudinarydone', function(e, data) {
 
             var version = data.result.version;
@@ -77,30 +67,9 @@ $(function() {
             var imageUrl = "http://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
 
-            /// ideas on how to hide it in plain sight? data-attribute
-            
             $('#url').data('url', imageUrl);
             console.log(imageUrl);
         });
-
-
-    /*$('.form-inline').submit(function(event) {
-        event.preventDefault();
-        var data = {
-            image: $('#url').data('url'),
-            user: $('#user').val(),
-            title: $('#title').val(),
-            description: $('#description').val(),
-            recordstore: $('#recordstore').val()
-        }
-
-        addData(data);
-        $('.form-inline')[0].reset();
-        location.reload();
-
-    });*/
-
-
 
     //sends data from post to server
     function addData(data) {
@@ -125,11 +94,6 @@ $(function() {
                 alert('fail' + status.code);
             }
         });
-
-
-
     }
-   
-
 
 });
