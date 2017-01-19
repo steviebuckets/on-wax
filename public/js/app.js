@@ -3,14 +3,14 @@ $(function() {
     //New Post Button On Click
     $("#new").click(function() {
         // assumes element with id='button'
-        $(".container-1").show();
-        $('.container-2').hide();
+        $('.container-user-upload-new-post').show();
+        $('.container-user-post-results').hide();
 
         //New Form Post
         $('.form-post').submit(function(event) {
             event.preventDefault();
-            $(".container-1").hide();
-            $('.container-2').show();
+            $('.container-user-upload-new-post').hide();
+            $('.container-user-post-results').show();
             var data = {
                 image: $('#url').data('url'),
                 user: $('#user').val(),

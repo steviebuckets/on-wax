@@ -7,8 +7,8 @@
     "aws-sdk": "^2.7.20",
     "blueimp-md5": "^2.6.0",
     "chai": "^3.5.0",
-    "cloudinary": "*",
     "chai-http": "^3.0.0",
+    "cloudinary": "*",
     "connect-multiparty": "^2.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
@@ -17,6 +17,7 @@
     "mongoose": "^4.7.5",
     "multer": "^1.2.1",
     "nodemon": "^1.11.0",
+    "normalize.css": "^5.0.0",
     "s3-uploader": "^2.0.3"
   },
   "devDependencies": {

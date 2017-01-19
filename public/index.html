@@ -2,18 +2,45 @@
 <html>
 <link rel="stylesheet" type="text/css" href="main.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Bungee|Open+Sans:300|Roboto:300" rel="stylesheet">
 
 <head>
     <!--  <title>On-Wax</title> -->
 </head>
 
-<body>
-    <div class="container-1">
+<!-- <body background="images/cover.jpg" id="bg-image" style="background-size: cover;"> -->
+    <!-- Header -->
+    <!-- <div class="container-header">
+        <header>On-Wax</header>
+        <p>A blogging site for record collector's, DJs and enthusiasts to share their record collections.</p>
+        <p>Login to start sharing your record library!</p>
+    </div> -->
+    <!-- Login and Register -->
+    <!-- <div class="container-login-register">
+        <form method="login" class="login-register" enctype="multipart/form-data" action="">
+            <div class="form-group">
+                <label>Email<span class="require">*</span></label>
+                <br>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label>Password<span class="require">*</span></label>
+                <br>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="actions">
+                <input type="submit" class="login-button" name="login-button" id="login" value="Login">
+                <input type="submit" class="register-button" name="register-button" id="register" value="Register">
+            </div>
+        </form>
+    </div> -->
+    <!-- User Upload New Post -->
+    <div class="container-user-upload-new-post">
         <div class="row1">
             <div class="col-md-8 col-md-offset-2">
                 <!-- New Posts Form-->
                 <h1>New Post</h1>
-                <form method="post" class="form-post" enctype="multipart/form-data" action="">
+                <form method="post" class="form-post" id="some-upload" enctype="multipart/form-data" action="">
                     <div class="form-group">
                         <label for="title">Title<span class="require">*</span></label>
                         <input type="text" class="form-control" name="title" id="title" />
@@ -32,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label>Image Upload<span class="require">*</span></label>
-                        <input type="file" name="file" id="uploaded">
+                        <input type="file" name="file" id="uploaded" />
                         <input type="hidden" name="image" id="url" data-url="">
                     </div>
                     <div class="form-group">
@@ -47,9 +74,11 @@
             </div>
         </div>
     </div>
-    <!-- Post Results -->
-    <div class="container-2">
-        <h2>My Feed</h2>
+    <!-- User Post Results -->
+    <div class="container-user-post-results">
+        <div class="center-title" id="title">
+            <h2>On-Wax</h2>
+        </div>
         <div class='center-button'>
             <button type="button" class="btn btn-primary" value='hide/show' id="new">New Post</button>
         </div>
@@ -60,6 +89,8 @@
         </div>
         <div class="grid">
         </div>
+    </div>
+    </div>
     </div>
     <!--Scripts-->
     <script type="text/javascript" src="./js/jquery-3.1.1.min.js"></script>

@@ -18,8 +18,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
-
-
 //get posts
 app.get('/posts', (req, res) => {
     BlogPost
@@ -54,19 +52,7 @@ app.get('/posts/:id', (req, res) => {
 
 //New Blog Posts
 app.post('/posts', (req, res) => {
-    /* console.log(req);*/
-   /*var image = cloudinary.uploader.unsigned_image_upload_tag('image', 'k9gdegt1', { cloud_name: 'dbkrpg9qe', tags: 'test_upload' });*/
-  /* const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
-
-    
-    requiredFields.some(function(element, index, field) {
-        if (!(field in req.body && req.body[field])) {
-            return res.status(400).json({ message: `Must specify value for ${field}` });
-        }
-
-        else return true;
-        
-        });*/
+   
         console.log('hi');
         console.log(req.body);
     const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
@@ -93,8 +79,6 @@ app.post('/posts', (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         });
 });
-
-
 
 
 //put/update
@@ -175,10 +159,6 @@ function closeServer() {
     });
 
 }
-
-
-
-
 
 if (require.main === module) {
     runServer().catch(err => console.error(err));

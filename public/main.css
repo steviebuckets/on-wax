@@ -1,38 +1,76 @@
 
-.form-inline {
-	text-align: center;
+@import 'normalize.css';
+
+
+/* styles for header */
+.container-header{
+    margin-top: 10rem;
 }
 
-h2 {
-	text-align: center;
-	padding-top: 1em;
+header{
+    font-size: 5em;
+    color: #C8FF00;
+    text-align: center;
+    padding-top: 1em;
+    font-family: 'Bungee', cursive; 
+    margin-bottom: 3rem;
 }
 
-.row {
-	text-align: center;
-	padding-top: 5em;
+p{
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.4em;
+    font-family: 'Roboto', sans-serif;
 }
 
-/*.container .row div:nth-child(4n) {
-    position: static;
+/* styles for login and register */
+.container-login-register{
+    margin-top: 3rem;
+    text-align: center;
+    color: white;
+    font-family: 'Roboto', sans-serif;
 }
-.container .row div:nth-child(4n):after {
-    content: ' ';
-    border-top: 1px solid black;
-    display: block;
-    position: absolute;
-    width: 95%;
-    margin-left: 2.5%;
-    left: 0;
-}*/
 
-/*.tag {
-	display: none;
-}*/
-
-.row, .col-md-4 {
-	padding-bottom: 2em;
+.form-control, #email, #password{
+    width: 25%;
+    height: 2.5rem;
+    padding: .25rem 1rem;
+    border: 1px solid white;
+    border-radius: .35rem;
+    margin: 1rem;
+    display: inline;
 }
+
+.register-button, .login-button {
+    padding: .4em 2em .4em 2em;
+    margin-top: 1.8rem;
+    margin-left: 1rem;
+    border: 1px #3B3737;
+    border-radius: .6rem;
+    background-color: #6C7068;
+    color: white;
+    font-size: 1.7rem;
+}
+
+/* styles for user upload new post */
+.container-user-upload-new-post{
+    display: none;
+}
+
+
+/* styles for user post results */
+.container-user-post-results{
+    display: ;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.center-title, h2 {
+    text-align: center;
+    padding-bottom: 1rem;
+    font-family: 'Bungee', cursive; 
+   }
 
 .form-group-upload{
   vertical-align: middle;
@@ -43,16 +81,27 @@ vertical-align: middle;
 
 }
 
-/*.form-group, h1{
-    display: none;
-}*/
+.center-button, #new{
+    text-align: center;
+    color: black;
+}
 
-.center-button{
+/* General */
+
+.form-inline {
     text-align: center;
 }
 
-.container-1{
-    display: none;
+
+
+
+.row {
+	text-align: center;
+	padding-top: 5em;
 }
 
 
+
+.row, .col-md-4 {
+	padding-bottom: 2em;
+}
