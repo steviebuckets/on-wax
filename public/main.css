@@ -1,6 +1,4 @@
 
-@import 'normalize.css';
-
 
 /* styles for header */
 .container-header{
@@ -61,7 +59,7 @@ p{
 
 /* styles for user post results */
 .container-user-post-results{
-    display: ;
+    display: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1.1em;
 }
@@ -92,8 +90,9 @@ vertical-align: middle;
     text-align: center;
 }
 
-
-
+.bg-image.toggle {
+    background-image: none;
+}
 
 .row {
 	text-align: center;

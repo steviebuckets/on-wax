@@ -1,5 +1,83 @@
 //document ready, retrieves posts from server and appends them to a div
 $(function() {
+
+    //gets data from login/register form
+    /* function registerUser() {*/
+
+
+    $('#register').click(function(event) {
+        event.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        $.ajax({
+            url: '/register',
+            method: 'POST',
+            data: {
+                email: email,
+                password: password
+            }
+        }).done(function(response) {
+            $('.bg-image').toggleClass('toggle');
+            $('.container-header').hide();
+            $('.container-login-register').hide();
+            $('.container-user-post-results').show();
+
+            /*alert(response.message);*/
+        }).fail(function(response) {
+            console.log("some error message");
+            /*alert(response.message);*/
+        });
+
+
+    })
+
+
+    $('#login').click(function(event) {
+        event.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        $.ajax({
+            url: '/login',
+            method: 'POST',
+            data: {
+                username: email,
+                password: password,
+                /*token: myToken*/
+            }
+        }).done(function(response) {
+             $('#bg-image').toggleClass('toggleClass');
+            $('.container-header').hide();
+            $('.container-login-register').hide();
+            $('.container-user-post-results').show();
+            console.log(response);
+        }).fail(function(response) {
+            console.log(response);
+        });
+    });
+
+    /*}*/
+
+
+
+    //jquery actions for button clicks in register and login
+
+    /*   $('.login-register').submit(function(event) {
+        var create_user ={
+            email: $('#email').val(),
+            password: $('#password').val()
+        }
+        var user_login = {
+            email: $('#email').val(),
+            password: $('#password').val()
+        }
+        addData(data);
+        $('#register').click(function(data) {
+            create_user;
+        });
+    }
+*/
+
+
     //New Post Button On Click
     $("#new").click(function() {
         // assumes element with id='button'

@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+//this is the structure for a new user on register
+const userSchema = new mongoose.Schema({
+    "email": {type: String, required: true},
+    "password": {type: String, required: true}
+    
+});
+
+
 
 //this is the structure for my blog posts
 const blogPostsSchema = mongoose.Schema({
@@ -25,6 +33,14 @@ blogPostsSchema.methods.apiRepr = function() {
     };
 }
 
+const User = mongoose.model('User', userSchema);
+
 const BlogPost = mongoose.model('BlogPost', blogPostsSchema);
 
+/*module.exports = { User };
 module.exports = { BlogPost };
+*/
+module.exports = {
+    User: User,
+    BlogPost: BlogPost
+}
