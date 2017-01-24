@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 //this is the structure for a new user on register
 const userSchema = new mongoose.Schema({
-    "email": {type: String, required: true},
-    "password": {type: String, required: true}
-    
+    "email": { type: String, required: true },
+    "password": { type: String, required: true }
+
 });
 
 
@@ -16,8 +16,8 @@ const blogPostsSchema = mongoose.Schema({
     "description": { type: String, required: true },
     "user": { type: String, required: true },
     // buffer cloudinary/s3 -> store this stuff for -> they give you a URL "s3.amazong.slj.png"
-    "image": {type: String, required: true},
-    "image_id": {type: String},
+    "image": { type: String, required: true },
+    "image_id": { type: String },
     "created": { type: Date, default: Date.now, required: true }
 });
 

@@ -1,11 +1,49 @@
-//document ready, retrieves posts from server and appends them to a div
 $(function() {
 
-    //gets data from login/register form
-    /* function registerUser() {*/
+    // once user is logged in
+    let myToken = localStorage.getItem('token');
 
+    if (myToken) {
+        $('.bg-image').toggleClass('toggle');
+        $('.container-header').hide();
+        $('.container-login-register').hide();
+        $('.container-user-post-results').show();
 
-    $('#register').click(function(event) {
+        $.getJSON('/posts?token=' + myToken, function(data) {
+
+            $.each(data.posts, function(i, data) {
+                var div_data =
+                    '<div><img src="' + data.image + '"><br/>' + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="' + data.id + '" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
+
+                var $items = $('<div class="col-md-4"></div');
+                $items.append(div_data)
+
+                $('.row').append($items);
+
+            });
+
+        });
+    } else {
+
+        /* $('.bg-image').toggleClass('toggle');*/
+        $('.container-header').show();
+        $('.container-login-register').show();
+    }
+
+    // on user logout
+    $('#logout').click(function(event) {
+        event.preventDefault();
+        $('.bg-image').show();
+        $('.container-header').show();
+        $('.container-login-register').show();
+        $('.container-user-post-results').hide();
+        location.reload();
+        localStorage.clear();
+
+    })
+
+    // if not looged in and not a user yet
+    $('.register-button').click(function(event) {
         event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val();
@@ -17,21 +55,20 @@ $(function() {
                 password: password
             }
         }).done(function(response) {
-            $('.bg-image').toggleClass('toggle');
+            $('.bg-image').hide();
             $('.container-header').hide();
             $('.container-login-register').hide();
             $('.container-user-post-results').show();
 
-            /*alert(response.message);*/
         }).fail(function(response) {
-            console.log("some error message");
-            /*alert(response.message);*/
+            console.log(response);
+
         });
 
 
-    })
+    });
 
-
+    // on user login
     $('#login').click(function(event) {
         event.preventDefault();
         var email = $('#email').val();
@@ -40,47 +77,26 @@ $(function() {
             url: '/login',
             method: 'POST',
             data: {
-                username: email,
-                password: password,
-                /*token: myToken*/
+                email: email,
+                password: password
             }
         }).done(function(response) {
-             $('#bg-image').toggleClass('toggleClass');
+
+            $('.bg-image').hide();
             $('.container-header').hide();
             $('.container-login-register').hide();
             $('.container-user-post-results').show();
-            console.log(response);
+            location.reload();
+            localStorage.setItem('token', response.token)
+
         }).fail(function(response) {
             console.log(response);
         });
     });
 
-    /*}*/
-
-
-
-    //jquery actions for button clicks in register and login
-
-    /*   $('.login-register').submit(function(event) {
-        var create_user ={
-            email: $('#email').val(),
-            password: $('#password').val()
-        }
-        var user_login = {
-            email: $('#email').val(),
-            password: $('#password').val()
-        }
-        addData(data);
-        $('#register').click(function(data) {
-            create_user;
-        });
-    }
-*/
-
 
     //New Post Button On Click
     $("#new").click(function() {
-        // assumes element with id='button'
         $('.container-user-upload-new-post').show();
         $('.container-user-post-results').hide();
 
@@ -104,28 +120,13 @@ $(function() {
         });
     });
 
-    $.getJSON('/posts', function(data) {
-
-        $.each(data.posts, function(i, data) {
-            var div_data =
-                '<div><img src="' + data.image + '"><br/>' + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="' + data.id + '" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
-
-            var $items = $('<div class="col-md-4"></div');
-            $items.append(div_data)
-
-            $('.row').append($items);
-
-        });
-
-    });
-
     //delete posts
     $('body').on('click', '.btn-delete', function(event) {
 
         event.preventDefault();
         var self = $(this);
         jQuery.ajax({
-            url: '/posts/' + this.id,
+            url: '/postsposts?token=/' + this.id,
             type: 'DELETE',
             success: function(data) {
                 // this has "function" connotations
@@ -151,12 +152,9 @@ $(function() {
 
     //sends data from post to server
     function addData(data) {
-        console.log(data, 'data')
-
         $.ajax({
-            url: '/posts',
+            url: '/posts?token=' + myToken,
             method: 'POST',
-            // contentType: 'application/json; charset=utf-8', // not too necessary
             data: data,
 
             success: function(responseData, status, jqXHR) {

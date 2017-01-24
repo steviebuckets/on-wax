@@ -1,5 +1,3 @@
-/*var dotenv = require('dotenv');
-dotenv.load();*/
 const fs = require('fs');
 const express = require('express');
 const stormpath = require('express-stormpath');
@@ -11,8 +9,6 @@ let secret = 'mysecret';
 //for user authentication
 var jwt = require('jsonwebtoken');
 
-
-
 const morgan = require('morgan');
 
 mongoose.Promise = global.Promise;
@@ -20,8 +16,7 @@ mongoose.Promise = global.Promise;
 const { PORT, DATABASE_URL } = require('./config');
 const BlogPost = require('./models').BlogPost;
 const User = require('./models').User;
-/*const { User } = require('./models');
- */
+
 const app = express();
 /*app.use(morgan('common'));*/
 
@@ -33,32 +28,70 @@ app.use(bodyParser.json());
 
 
 
-//strategy\
-/*passport.use(new LocalStrategy({
-    usernameField: 'email',
-     passwordField: 'password',
-     session: false,
-    function(username, password, done) {
-        // do some due dillgence
-        User.findOne({ email: username}, function(err, user) {
-            if(err) {return done(err); }
-        })
-        if(!user) {
-            return done(null, false, {message: 'Email not found'});
-        }
-        if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Incorrect password.'});
-        }
-        return done(null, user);
-    }
-}))*/
-
-
-
-
 var bcrypt = require('bcrypt-nodejs');
 
-//get posts
+// verification for posts on login
+app.post('/login', (req, res) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+        console.log(user);
+        if (err) throw err;
+
+        if (!user) {
+            res.json({ success: false, message: 'User not found' });
+        } else if (user) {
+            if (user.password != req.body.password) {
+                res.json({ success: false, message: 'Wrong password' });
+            } else {
+                let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token ' + myToken,
+                    token: myToken
+                });
+            }
+        }
+    });
+});
+
+//verification for posts on register
+app.post('/register', (req, res) => {
+    var password = bcrypt.hashSync(req.body.password);
+    req.body.password = password;
+    User.create(req.body, function(err, saved) {
+        if (err) {
+            console.log(err);
+            res.json({ message: err });
+        } else {
+
+            res.json({ message: "User successfully registered!" });
+        }
+    });
+
+});
+
+/// anything above is "NOT PROTECTED"
+
+app.use((req, res, next) => {
+    var token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
+    if (token) {
+        jwt.verify(token, secret, (error, decoded) => {
+            if (error) {
+                return res.json({ success: false, message: 'failed to authenticate token.' });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided'
+        });
+    }
+});
+
+/// anything below is "PROTECTED"/// anything below is "PROTECTED"
 app.get('/posts', (req, res) => {
     BlogPost
         .find()
@@ -79,63 +112,9 @@ app.get('/posts', (req, res) => {
             });
 });
 
-// verification for posts on login
-app.post('/login', (req, res) => {
-User.findOne({ email: req.body.name}, (err, user) => {
-    if(err) throw err;
-
-    if(!user) {
-        res.json({ success: false, message: 'User not found'});
-    } else if (user) {
-        if (user.password != req.body.password){
-            res.json({ success: false, message: 'Wrong password'});
-        } else {
-            let myToken = jwt.sign({email: user.email}, secret, {expiresIn: "24h"});
-            res.json({
-                success: true,
-                message: 'Enjoy your token',
-               /* token: myToken*/
-            });
-        }
-    }
-});
-}); 
-
-//verification for posts on register
-app.post('/register', (req, res) => {
-    var password = bcrypt.hashSync(req.body.password);
-    req.body.password = password;
-    User.create(req.body, function(err, saved) {
-        if (err) {
-            console.log(err);
-            res.json({ message: err });
-        } else {
-            res.json({ message: "User successfully registered!" });
-        }
-    });
-
-});
 
 
-app.use((req, res, next) => {
-    var token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
-    if (token) {
-        jwt.verify(token, app.get('secret'), (error, decoded) => {
-            if (error) {
-                return res.json({ success: false, message: 'failed to authenticate token.' });
-            } else {
-                req.decoded = decoded;
-                next();
-            }
 
-        });
-    } else {
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided'
-        });
-    }
-});
 app.get('/posts/:id', (req, res) => {
     BlogPost
         .findById(req.params.id)
