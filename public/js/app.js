@@ -59,6 +59,8 @@ $(function() {
             $('.container-header').hide();
             $('.container-login-register').hide();
             $('.container-user-post-results').show();
+             localStorage.setItem('token', response.token)
+            location.reload();
 
         }).fail(function(response) {
             console.log(response);
@@ -86,8 +88,9 @@ $(function() {
             $('.container-header').hide();
             $('.container-login-register').hide();
             $('.container-user-post-results').show();
-            location.reload();
+            
             localStorage.setItem('token', response.token)
+            location.reload();
 
         }).fail(function(response) {
             console.log(response);

@@ -57,17 +57,26 @@ app.post('/login', (req, res) => {
 app.post('/register', (req, res) => {
     var password = bcrypt.hashSync(req.body.password);
     req.body.password = password;
+    user = req.body.email;
     User.create(req.body, function(err, saved) {
         if (err) {
             console.log(err);
             res.json({ message: err });
         } else {
-
-            res.json({ message: "User successfully registered!" });
+            let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
+            res.json({
+                success: true,
+                message: "User successfully registered!" + myToken,
+                token: myToken
+            });
         }
+
     });
 
+
+
 });
+
 
 /// anything above is "NOT PROTECTED"
 
