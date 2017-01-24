@@ -1,6 +1,5 @@
 const fs = require('fs');
 const express = require('express');
-const stormpath = require('express-stormpath');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary');
