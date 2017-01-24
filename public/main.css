@@ -11,7 +11,6 @@ header{
     text-align: center;
     padding-top: 1em;
     font-family: 'Bungee', cursive; 
-    margin-bottom: 3rem;
 }
 
 p{
@@ -62,6 +61,7 @@ p{
     display: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1.1em;
+
 }
 
 .center-title, h2 {
@@ -79,13 +79,29 @@ vertical-align: middle;
 
 }
 
-.center-button, #new{
-    text-align: center;
-    color: black;
-}
 
 /* General */
+#logout-top{
+    float: right;
+    margin-right: 2rem;
+    font-size: .8em;
+   
+}
 
+#new-top{
+    text-align: center;
+    font-size: .8em;
+    background-color: black;
+}
+
+#new-top{
+    float: right;
+    margin-right: 2rem;
+}
+
+h2 {
+    padding-top: 4.5rem;
+}
 .form-inline {
     text-align: center;
 }

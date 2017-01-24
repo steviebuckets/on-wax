@@ -28,10 +28,12 @@ $(function() {
         /* $('.bg-image').toggleClass('toggle');*/
         $('.container-header').show();
         $('.container-login-register').show();
+        $('#logout-top').hide();
+        $('#new-top').hide();
     }
 
     // on user logout
-    $('#logout').click(function(event) {
+    $('#logout-top').click(function(event) {
         event.preventDefault();
         $('.bg-image').show();
         $('.container-header').show();
@@ -99,7 +101,7 @@ $(function() {
 
 
     //New Post Button On Click
-    $("#new").click(function() {
+    $("#new-top").click(function() {
         $('.container-user-upload-new-post').show();
         $('.container-user-post-results').hide();
 
