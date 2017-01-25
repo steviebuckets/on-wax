@@ -6,7 +6,7 @@ const cloudinary = require('cloudinary');
 let secret = 'mysecret';
 
 //for user authentication
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const morgan = require('morgan');
 
@@ -15,7 +15,7 @@ mongoose.Promise = global.Promise;
 const { PORT, DATABASE_URL } = require('./config');
 const BlogPost = require('./models').BlogPost;
 const User = require('./models').User;
-
+const bcrypt = require('bcrypt-nodejs');
 const app = express();
 /*app.use(morgan('common'));*/
 
@@ -27,18 +27,22 @@ app.use(bodyParser.json());
 
 
 
-var bcrypt = require('bcrypt-nodejs');
+
 
 // verification for posts on login
 app.post('/login', (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
-        console.log(user);
+        // console.log(user);
         if (err) throw err;
 
         if (!user) {
             res.json({ success: false, message: 'User not found' });
         } else if (user) {
-            if (user.password != req.body.password) {
+            
+            console.log(user.comparePassword(req.body.password), 'what!');
+
+            if (bcrypt.hashSync(req.body.password)!== user.password) {
+             
                 res.json({ success: false, message: 'Wrong password' });
             } else {
                 let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
@@ -55,9 +59,12 @@ app.post('/login', (req, res) => {
 //verification for posts on register
 app.post('/register', (req, res) => {
     var password = bcrypt.hashSync(req.body.password);
-    req.body.password = password;
-    user = req.body.email;
-    User.create(req.body, function(err, saved) {
+    // req.body.password = password;
+    // user = req.body.email;
+    User.create({
+        password: password,
+        email: req.body.email
+    }, function(err, user) {
         if (err) {
             console.log(err);
             res.json({ message: err });
@@ -72,9 +79,8 @@ app.post('/register', (req, res) => {
 
     });
 
-
-
 });
+
 
 
 /// anything above is "NOT PROTECTED"
@@ -98,6 +104,7 @@ app.use((req, res, next) => {
         });
     }
 });
+
 
 
 

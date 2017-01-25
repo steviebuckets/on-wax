@@ -8,8 +8,10 @@ $(function() {
         $('.container-header').hide();
         $('.container-login-register').hide();
         $('.container-user-post-results').show();
+        
 
         $.getJSON('/posts?token=' + myToken, function(data) {
+
 
             $.each(data.posts, function(i, data) {
                 var div_data =
@@ -18,8 +20,7 @@ $(function() {
                 var $items = $('<div class="col-md-4"></div');
                 $items.append(div_data)
 
-                $('.row').append($items);
-
+                $('.row').append($items);               
             });
 
         });
@@ -31,6 +32,34 @@ $(function() {
         $('#logout-top').hide();
         $('#new-top').hide();
     }
+
+     // on user login
+    $('#login').click(function(event) {
+        event.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        $.ajax({
+            url: '/login',
+            method: 'POST',
+            data: {
+                email: email,
+                password: password
+            }
+        }).done(function(response) {
+            console.log(response);
+            $('.bg-image').hide();
+            $('.container-header').hide();
+            $('.container-login-register').hide();
+            $('.container-user-post-results').show();
+            
+            localStorage.setItem('token', response.token);
+            location.reload();
+
+        }).fail(function(response) {
+            console.log(response);
+        });
+    });
+
 
     // on user logout
     $('#logout-top').click(function(event) {
@@ -61,8 +90,9 @@ $(function() {
             $('.container-header').hide();
             $('.container-login-register').hide();
             $('.container-user-post-results').show();
-             localStorage.setItem('token', response.token)
-            location.reload();
+             
+             localStorage.setItem('token', response.token);
+             location.reload();
 
         }).fail(function(response) {
             console.log(response);
@@ -72,33 +102,7 @@ $(function() {
 
     });
 
-    // on user login
-    $('#login').click(function(event) {
-        event.preventDefault();
-        var email = $('#email').val();
-        var password = $('#password').val();
-        $.ajax({
-            url: '/login',
-            method: 'POST',
-            data: {
-                email: email,
-                password: password
-            }
-        }).done(function(response) {
-
-            $('.bg-image').hide();
-            $('.container-header').hide();
-            $('.container-login-register').hide();
-            $('.container-user-post-results').show();
-            
-            localStorage.setItem('token', response.token)
-            location.reload();
-
-        }).fail(function(response) {
-            console.log(response);
-        });
-    });
-
+   
 
     //New Post Button On Click
     $("#new-top").click(function() {
@@ -127,20 +131,23 @@ $(function() {
 
     //delete posts
     $('body').on('click', '.btn-delete', function(event) {
-
         event.preventDefault();
         var self = $(this);
         jQuery.ajax({
-            url: '/postsposts?token=/' + this.id,
+            // /blah/blah/dah query string!!! ?key=value
+            url: '/posts/' + this.id + '?token=' + myToken || localStorage.getItem('token'),
             type: 'DELETE',
             success: function(data) {
                 // this has "function" connotations
                 console.log(this, self);
                 self.parent().parent().remove();
 
+
             }
         });
     })
+
+
 
     //this creates a new post on submit from user-posts form.
     $('#uploaded').unsigned_cloudinary_upload('k9gdegt1', { cloud_name: 'dbkrpg9qe' }, { multiple: true })
