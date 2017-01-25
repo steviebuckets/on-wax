@@ -13,7 +13,7 @@ $(function() {
 
             $.each(data.posts, function(i, data) {
                 var div_data =
-                    '<div><img src="' + data.image + '"><br/>' + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="' + data.id + '" type="button" class="btn-delete btn-secondary btn-xs">Delete</button></div>';
+                    '<div><img src="' + data.image + '"><br/>' + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="' + data.id + '" type="button" class="btn-delete btn-danger btn-secondary btn-xs">Delete</button></div>';
 
                 var $items = $('<div class="col-md-4"></div');
                 $items.append(div_data)

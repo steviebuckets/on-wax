@@ -64,11 +64,13 @@ p{
 
 }
 
-.center-title, h2 {
+.center-title h2 {
     text-align: center;
     padding-bottom: 1rem;
     font-family: 'Bungee', cursive; 
+    font-size: 4.2rem;
    }
+
 
 .form-group-upload{
   vertical-align: middle;
@@ -112,7 +114,7 @@ h2 {
 
 .row {
 	text-align: center;
-	padding-top: 5em;
+	padding-top: 1rem;
 }
 
 

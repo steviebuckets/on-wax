@@ -99,6 +99,8 @@ app.use((req, res, next) => {
     }
 });
 
+
+
 /// anything below is "PROTECTED"/// anything below is "PROTECTED"
 app.get('/posts', (req, res) => {
     BlogPost
