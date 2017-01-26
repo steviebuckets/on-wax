@@ -26,56 +26,47 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
 // verification for posts on login
 app.post('/login', (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
-        // console.log(user);
         if (err) throw err;
 
         if (!user) {
-            res.json({ success: false, message: 'User not found' });
-        } else if (user) {
-            
-            console.log(user.comparePassword(req.body.password), 'what!');
-
-            if (user.password !== user.password) {
-             
-                res.json({ success: false, message: 'Wrong password' });
-            } else {
-                let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token ' + myToken,
-                    token: myToken
-                });
-            }
+            return res.json({ success: false, message: 'User not found' });
         }
-    });
-});
 
-//verification for posts on register
-app.post('/register', (req, res) => {
-    var password = bcrypt.hashSync(req.body.password);
-    // req.body.password = password;
-    // user = req.body.email;
-    User.create({
-        password: password,
-        email: req.body.email
-    }, function(err, user) {
-        if (err) {
-            console.log(err);
-            res.json({ message: err });
+        if (!user.comparePassword(req.body.password)) {
+            res.json({ success: false, message: 'Wrong password' });
         } else {
             let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
             res.json({
                 success: true,
-                message: "User successfully registered!" + myToken,
+                message: 'Enjoy your token ' + myToken,
                 token: myToken
             });
         }
 
     });
+});
+
+//verification for posts on register
+app.post('/register', (req, res) => {
+    let user = new User();
+    user.email = req.body.email;
+    user.password = req.body.password;
+
+    user.save((err) => {
+        if (err) {
+            console.log(err);
+            return res.json({ message: "Can't create a user" })
+        }
+        let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
+        res.json({
+            success: true,
+            message: "User successfully registered!" + myToken,
+            token: myToken
+        });
+    })
 
 });
 
@@ -84,7 +75,7 @@ app.post('/register', (req, res) => {
 /// anything above is "NOT PROTECTED"
 
 app.use((req, res, next) => {
-    var token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
+    let token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, secret, (error, decoded) => {
             if (error) {
@@ -145,7 +136,6 @@ app.get('/posts/:id', (req, res) => {
 //New Blog Posts
 app.post('/posts', (req, res) => {
 
-    console.log(req.body);
     const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
     // start for each func
     requiredFields.some(field => {
@@ -181,7 +171,7 @@ app.put('/posts/:id', (req, res) => {
         res.status(400).json({ message: message });
     }
 
-    const toUpdate = {};
+    let toUpdate = {}; // you change it later, const means no change - removed.
     const updateableFields = ['title', 'description'];
 
     updateableFields.forEach(field => {
