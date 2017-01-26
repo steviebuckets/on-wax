@@ -26,31 +26,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
 // verification for posts on login
 app.post('/login', (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
-        // console.log(user);
         if (err) throw err;
 
         if (!user) {
-            res.json({ success: false, message: 'User not found' });
-        } else if (user) {
-            
-            console.log(user.comparePassword(req.body.password), 'what!');
-
-            if (user.password !== user.password) {
-             
-                res.json({ success: false, message: 'Wrong password' });
-            } else {
-                let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token ' + myToken,
-                    token: myToken
-                });
-            }
+            return res.json({ success: false, message: 'User not found' });
         }
+
+        if (!user.comparePassword(req.body.password)) {
+            res.json({ success: false, message: 'Wrong password' });
+        } else {
+            let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
+            res.json({
+                success: true,
+                message: 'Enjoy your token ' + myToken,
+                token: myToken
+            });
+        }
+
     });
 });
 
@@ -59,23 +54,22 @@ app.post('/register', (req, res) => {
     var password = bcrypt.hashSync(req.body.password);
     // req.body.password = password;
     // user = req.body.email;
-    User.create({
-        password: password,
-        email: req.body.email
-    }, function(err, user) {
+    var user = new User();
+    user.email = req.body.email;
+    user.password = req.body.password;
+
+    user.save((err) => {
         if (err) {
             console.log(err);
-            res.json({ message: err });
-        } else {
-            let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
-            res.json({
-                success: true,
-                message: "User successfully registered!" + myToken,
-                token: myToken
-            });
+            return res.json({ message: "Can't create a user" })
         }
-
-    });
+        let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
+        res.json({
+            success: true,
+            message: "User successfully registered!" + myToken,
+            token: myToken
+        });
+    })
 
 });
 
