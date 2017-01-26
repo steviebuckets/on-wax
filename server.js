@@ -27,8 +27,6 @@ app.use(bodyParser.json());
 
 
 
-
-
 // verification for posts on login
 app.post('/login', (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -41,7 +39,7 @@ app.post('/login', (req, res) => {
             
             console.log(user.comparePassword(req.body.password), 'what!');
 
-            if (bcrypt.hashSync(req.body.password)!== user.password) {
+            if (user.password !== user.password) {
              
                 res.json({ success: false, message: 'Wrong password' });
             } else {
