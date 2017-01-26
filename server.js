@@ -51,10 +51,7 @@ app.post('/login', (req, res) => {
 
 //verification for posts on register
 app.post('/register', (req, res) => {
-    var password = bcrypt.hashSync(req.body.password);
-    // req.body.password = password;
-    // user = req.body.email;
-    var user = new User();
+    let user = new User();
     user.email = req.body.email;
     user.password = req.body.password;
 
@@ -78,7 +75,7 @@ app.post('/register', (req, res) => {
 /// anything above is "NOT PROTECTED"
 
 app.use((req, res, next) => {
-    var token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
+    let token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, secret, (error, decoded) => {
             if (error) {
@@ -139,7 +136,6 @@ app.get('/posts/:id', (req, res) => {
 //New Blog Posts
 app.post('/posts', (req, res) => {
 
-    console.log(req.body);
     const requiredFields = ['image', 'title', 'recordstore', 'description', 'user'];
     // start for each func
     requiredFields.some(field => {
@@ -175,7 +171,7 @@ app.put('/posts/:id', (req, res) => {
         res.status(400).json({ message: message });
     }
 
-    const toUpdate = {};
+    let toUpdate = {}; // you change it later, const means no change - removed.
     const updateableFields = ['title', 'description'];
 
     updateableFields.forEach(field => {
