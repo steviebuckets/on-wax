@@ -1,3 +1,18 @@
+p.image-posts {
+    z-index: -2;
+    position: absolute;
+    background-color: black;
+    color: yellow;
+}
+
+img.on-hover:hover {
+   position: absolute;
+   opacity: 0.2;
+}
+
+
+
+
 .alert {
     width: 50%;
     display: inline-block;
