@@ -3,46 +3,70 @@
 <link rel="stylesheet" type="text/css" href="main.css">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Bungee|Open+Sans:300|Roboto:300" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lekton|Monoton|Nixie+One|Work+Sans:200" rel="stylesheet">
+<link rel="stylesheet" href="animate.min.css">
 
 <head>
     <!--  <title>On-Wax</title> -->
 </head>
+<button type="button" class="btn btn-danger" value='hide/show' id="logout-top">Logout</button>
+<button type="button" class="btn btn-primary" value='hide/show' id="new-top">New Post</button>
 
- <button type="button" class="btn btn-danger" value='hide/show' id="logout-top">Logout</button>
- <button type="button" class="btn btn-primary" value='hide/show' id="new-top">New Post</button>
-
-<body background="images/cover.jpg" class="bg-image" style="background-size: cover;">
+<body>
+    <!-- ORIGINAL HEADER SECTION -->
     <!-- Header -->
-
-    <div class="container-header">
-
-        <header>On-Wax</header>
-        <p>A blogging site for record collector's, DJs and enthusiasts to share their record collections.</p>
-        <p>Login to start sharing your record library!</p>
-    </div>
+    <!--  <div class="container-header"> -->
+    <!-- <header>On-Wax</header> -->
+    </div> -->
     <!-- Login and Register -->
-    <div class="container-login-register">
-        <form method="post" class="login-register" id="register">
-            <div class="form-group">
-                <label>Email<span class="require">*</span></label>
-                <br>
-                <input type="email" class="form-control" id="email" name="email">
+    <div class="jumbotron">
+        <div class="container">
+            <h1>On-Wax</h1>
+            <a href="#section-2" class="btn btn-circle page-scroll">
+                <i class="fa fa-play-circle fa-5x"></i></a>
+        </div>
+    </div>
+    <div class="section-2" id="section-2">
+        <p>On-Wax is a blog for record collector's, DJ's, and enthusiasts to share their vinyl collections.</br>
+            Login, or register to start sharing!</br>
+            <form method="post" class="login-register" id="register">
+                <div class="container">
+                    <div class="form-group">
+                        <label>Email<span class="require">*</span></label>
+                        <br>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    </br>
+                    <div class="form-group">
+                        <label>Password<span class="require">*</span></label>
+                        <br>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="actions">
+                        <input type="submit" class="login-button" name="login-button" id="login" value="Sign in">
+                        <input type="submit" class="register-button" name="register-button" id="register" value="Register">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger hidden">
+                                <strong>AlERT!</strong> User already exists.
+                            </div>
+                        </div>
+                    </div>
+            </form>
             </div>
-            <div class="form-group">
-                <label>Password<span class="require">*</span></label>
-                <br>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <div class="actions">
-                <input type="submit" class="login-button" name="login-button" id="login" value="Login">
-                <input type="submit" class="register-button" name="register-button" id="register" value="Register">
-            </div>
-        </form>
+            <footer class="footer">
+                <div class="container">
+                    <p>design by: stevie Gigabytes</p>
+                </div>
+            </footer>
+    </div>
     </div>
     <!-- User Upload New Post -->
     <div class="container-user-upload-new-post">
-        <div class="row1">
+        <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <!-- New Posts Form-->
                 <h1>New Post</h1>
@@ -65,10 +89,9 @@
                     </div>
                     <div class="form-group">
                         <label>Image Upload<span class="require">*</span></label>
-                        <input type="file" name="file" id="uploaded"/>
+                        <input type="file" name="file" id="uploaded" />
                         <input type="hidden" name="image" id="url" data-url="">
                     </div>
-
                     <div class="form-group">
                         <p><span class="require">*</span> - required fields</p>
                     </div>
@@ -81,7 +104,48 @@
             </div>
         </div>
     </div>
-
+    <!-- User Edit Post -->
+    <div class="container-user-edit-post">
+        <div class="row-1">
+            <div class="col-md-8 col-md-offset-2">
+                <!-- Edit Posts Form-->
+                <h1>Edit Post</h1>
+                <form data-id="" method="put" class="edit-post" id="edit-post" enctype="multipart/form-data" action="">
+                    <div class="form-group">
+                        <label for="edit-title">Title<span class="require">*</span></label>
+                        <input type="text" class="form-control" name="edit-title" id="edit-title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-description">Description<span class="require">*</span></label>
+                        <textarea rows="5" class="form-control" name="edit-description" id="edit-description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-user">User<span class="require">*</span></label>
+                        <textarea rows="1" class="form-control" name="edit-user" id="edit-user"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-recordstore">Record Store<span class="require">*</span></label>
+                        <textarea rows="1" class="form-control" name="edit-recordstore" id="edit-recordstore"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image Upload<span class="require">*</span></label>
+                        <!-- // show the existing image!! -->
+                        <img src="" id='image-preview'>
+                        <input type="file" name="file" id="edit-uploaded" />
+                        <input type="hidden" name="image" id="edit-url" data-url="">
+                    </div>
+                    <div class="form-group">
+                        <p><span class="require">*</span> - required fields</p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-edit btn-primary" id="edit-post">
+                            Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- User Post Results -->
     <div class="container-user-post-results">
         <div class="center-title" id="title">

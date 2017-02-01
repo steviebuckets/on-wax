@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 //this is the structure for a new user on register
 const userSchema = new mongoose.Schema({
-    "email": { type: String, required: true },
+    "email": { type: String, required: true, unique: true, index: true },
     "password": { type: String, required: true }
-
 });
 
 
@@ -13,11 +12,14 @@ userSchema.pre('save', function(next) {
 
     if (!user.isModified('password')) return next();
 
+
     bcrypt.hash(user.password, null, null, function(err, hash) {
         if (err) return next(err);
         user.password = hash;
         next();
     });
+
+    
 });
 
 
@@ -26,6 +28,7 @@ userSchema.methods.comparePassword = function(password) {
     var user = this;
     return bcrypt.compareSync(password, user.password);
 }
+
 
 //this is the structure for my blog posts
 const blogPostsSchema = mongoose.Schema({

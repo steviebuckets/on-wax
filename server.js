@@ -34,7 +34,6 @@ app.post('/login', (req, res) => {
         if (!user) {
             return res.json({ success: false, message: 'User not found' });
         }
-
         if (!user.comparePassword(req.body.password)) {
             res.json({ success: false, message: 'Wrong password' });
         } else {
@@ -58,7 +57,7 @@ app.post('/register', (req, res) => {
     user.save((err) => {
         if (err) {
             console.log(err);
-            return res.json({ message: "Can't create a user" })
+            return res.status(500).json({ message: "User already exists" })
         }
         let myToken = jwt.sign({ email: user.email }, secret, { expiresIn: "24h" });
         res.json({
@@ -125,10 +124,15 @@ app.get('/posts/:id', (req, res) => {
     BlogPost
         .findById(req.params.id)
         .exec()
-        .then(post => res.json(post.apiRepr()))
-        .catch(err => {
+        .then(post => { 
+            res.json(post.apiRepr())
+        
+})
+
+        .catch(
+            err => {
             console.error(err);
-            res.status(500).json({ error: 'something went horribly awry' });
+             res.json({ message: 'Internal sever error' });
         });
 });
 
@@ -163,16 +167,23 @@ app.post('/posts', (req, res) => {
 
 //put/update
 app.put('/posts/:id', (req, res) => {
-    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    if (!(req.params.id && req.body.id === req.body.id)) {
+   /*url: '/posts/' + this.id + '?token=' + myToken,*/
         const message = (
             `Request path id (${req.params.id}) and request body id ` +
             `(${req.body.id}) must match`);
         console.error(message);
-        res.status(400).json({ message: message });
+        res.status(400).json({ message: 'message' });
     }
 
-    let toUpdate = {}; // you change it later, const means no change - removed.
-    const updateableFields = ['title', 'description'];
+    let toUpdate = {
+            image: req.body.image,
+            title: req.body.title,
+            recordstore: req.body.recordstore,
+            description: req.body.description,
+            user: req.body.user
+        }; // you change it later, const means no change - removed.
+    const updateableFields = ['image', 'title', 'recordstore', 'description', 'user'];
 
     updateableFields.forEach(field => {
         if (field in req.body) {
