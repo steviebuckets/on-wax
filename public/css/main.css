@@ -1,17 +1,62 @@
+.navbar-brand h1 {
+    color: black;
+    font-family: 'Monoton';
+    font-size: 4.1rem;
+    margin-left: -47px;
+}
+
+.navbar-brand {
+    float: left;
+    margin-top: -56px;
+}
+
+.navbar {
+    padding-top: -20px;
+}
+
 p.image-posts {
-    z-index: -2;
+    z-index: 4;
     position: absolute;
-    background-color: black;
-    color: yellow;
+    color: black;
+    top: 22px;
+    left: 552px;
+    opacity: 0;
+    /*display: none;*/
+}
+
+p.image-posts {
+    padding-top: 190px;
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    line-height: 170%;
+}
+
+.col-md-12 img {
+    border: 1px solid #e7e7e7;
+    padding: 20px;
 }
 
 img.on-hover:hover {
-   position: absolute;
-   opacity: 0.2;
+    position: initial;
+    opacity: 0.3;
+    z-index: 5;
+}
+
+.image-posts:hover {
+    opacity: 0.8;
+    color: white;
+    background-color: black;
+    width: 600px;
+    height: 600px;
+    border-radius: 2px;
+}
+
+.btn-delete {
+    background-color: black;
 }
 
 
-
+/*Give buttons a Z index*/
 
 .alert {
     width: 50%;
@@ -68,6 +113,17 @@ div.jumbotron h1 {
 
 .fa {
     color: #E0E0E0;
+}
+
+.fa-plus,
+.fa-minus {
+    color: black;
+    margin-right: 190px;
+    outline: thin;
+}
+
+.fa-plus {
+    margin-right: 40px;
 }
 
 .section-2 {
@@ -206,13 +262,27 @@ p {
 
 .container-user-upload-new-post {
     display: none;
+    width: 50%;
+    margin-left: 400px;
+    vertical-align: middle;
 }
 
+.container-user-upload-new-post .btn-primary {
+    background-color: black;
+    border-color: black
+}
 
 /* styles for user edit post */
 
 .container-user-edit-post {
     display: none;
+    width: 50%;
+    margin-left: 400px;
+}
+
+.container-user-edit-post .btn-edit {
+    background-color: black;
+    border-color: black
 }
 
 
@@ -224,12 +294,14 @@ p {
     font-size: 1.1em;
 }
 
-.center-title h2 {
-    text-align: center;
-    padding-bottom: 1rem;
+
+/*.center-title h2 {
+    text-align: left;
+    margin-left: 2rem;
+    padding-bottom: 7rem;
     font-family: 'Monoton';
-    font-size: 6rem;
-}
+    font-size: 4.3rem;
+}*/
 
 .form-group-upload {
     vertical-align: middle;
@@ -242,20 +314,42 @@ p {
 
 /* General */
 
-#logout-top {
+
+/*#logout-top {
     float: right;
-    margin-right: 2rem;
-    font-size: .8em;
+    margin-right: 4rem;
+    font-size: .6em;
+    padding: 14px 19px;
+    background: none;
+    border: 1px solid black;
+    font-weight: 500;
+    color: black;
+    text-transform: uppercase;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0
 }
 
-#new-top {
-    text-align: center;
-    font-size: .8em;
-}
 
 #new-top {
     float: right;
     margin-right: 2rem;
+    font-size: .6em;
+    margin: 0 5px;
+    padding: 14px 19px;
+    background-color: #212121;
+   
+    border: 1px solid black;
+    font-weight: 500;
+    color: white;
+    text-transform: uppercase;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0
+}*/
+
+.alert-warning {
+    display: none;
 }
 
 h2 {
@@ -276,6 +370,118 @@ h2 {
 }
 
 .row,
-.col-md-4 {
-    padding-bottom: 2em;
+.col-md-12 {
+    padding-bottom: 4em;
+}
+
+@media only screen
+and (max-width: 400px) {
+div.jumbotron h1{
+    font-size: 60px;
+    margin-top: 240px;
+}
+div.jumbotron .fa{
+    font-size: 50px;
+
+}
+div.section-2 p {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+
+}
+div.section-2 .form-group {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+div.section-2 .actions .login-button, .register-button {
+    font-size: 14px;
+   
+}
+.navbar h1{
+    font-size: 32px;
+    padding-left: 50px;
+
+}
+.navbar-collapse {
+    font-size: 14px;
+    text-align: center;
+    text-align: center;
+}
+.container-user-upload-new-post{
+margin-left: 100px;
+vertical-align: middle;
+text-align: center;
+}
+.container-user-upload-new-post #image-preview-post{
+max-width: 400px;
+
+}
+.container-user-upload-new-post, .form-control{
+vertical-align: middle;
+text-align: center;
+width: 90%;
+display: initial;
+
+}
+}
+
+/*iphone 6*/
+@media only screen 
+and (max-device-width: 375px) {
+    div.jumbotron h1{
+    font-size: 91px;
+    margin-top: 650px;
+}
+div.jumbotron .fa{
+    font-size: 120px;
+    }
+    div.section-2 p {
+    font-size: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 140px;
+
+}
+div.section-2 .form-group {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+div.section-2 .actions .login-button, .register-button {
+    font-size: 28px;
+   
+}
+}
+
+@media only screen
+and (max-device-width: 412px) {
+     div.jumbotron h1{
+    font-size: 91px;
+    margin-top: 550px;
+}
+div.jumbotron .fa{
+    font-size: 100px;
+    }
+    div.section-2 p {
+    font-size: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 140px;
+
+}
+div.section-2 .form-group {
+    font-size: 37px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+div.section-2 .actions .login-button, .register-button {
+    font-size: 30px;
+   
+}
+
 }

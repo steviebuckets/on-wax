@@ -1,5 +1,10 @@
 $(function() {
 
+    /*$('.on-hover').hover(
+        function (){
+            $('p.image-posts').show();
+        })*/
+
     // once user is logged in
     let myToken = localStorage.getItem('token');
 
@@ -10,16 +15,19 @@ $(function() {
         $('.container-login-register').hide();
         $('.container-user-post-results').show();
 
+  
 
         $.getJSON('/posts?token=' + myToken, function(data) {
 
 
 
-            $.each(data.posts, function(i, data) {
-                var div_data =
-                    '<div><img class="on-hover" src="' + data.image + '"><br/><p class="image-posts">' + data.title + "<br/>" + data.recordstore + "<br/>" + data.description + "<br/>" + data.user + "<br/>" + data.created + '<br/><button id="' + data.id + '" type="button" class="btn-delete btn-danger btn-secondary btn-xs">Delete</button> <br/><br/><button id="' + data.id + '" type="button" class="btn-edit btn-primary btn-secondary btn-xs">Edit</button></p></div>';
+            $.each(data, function(i, data) {
+                var d = new Date();
 
-                var $items = $('<div class="col-md-4"></div');
+                var div_data =
+                    '<div><img class="on-hover" src="' + data.image + '"><br/> <p class="image-posts">' + data.artist + "<br/>" + data.title + "<br/>" + data.recordstore + "<br/>" + d.toDateString() + '<br/><button id="' + data._id + '" type="button" s class="btn-delete btn-link">Delete</button><br/><button id="' + data._id + '" type="button" class="btn-edit btn-link">Edit</button></p></div>';
+
+                var $items = $('<div class="col-md-12"></div');
                 $items.append(div_data)
 
                 $('.row').append($items);
@@ -29,6 +37,7 @@ $(function() {
     } else {
 
         /* $('.bg-image').toggleClass('toggle');*/
+        $('.navbar').hide();
         $('.container-header').show();
         $('.container-login-register').show();
         $('#logout-top').hide();
@@ -40,12 +49,15 @@ $(function() {
         event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val();
+        //add var for object ID below?
+        /*var blogPosts = $('.container-user-post-results').val();*/
         $.ajax({
             url: '/login',
             method: 'POST',
             data: {
                 email: email,
                 password: password
+                    /*blogPosts: BlogPost*/
             }
         }).done(function(response) {
             console.log(response);
@@ -111,18 +123,19 @@ $(function() {
     //New Post Button On Click
     $("#new-top").click(function() {
         $('.container-user-upload-new-post').show();
-        $('.container-user-post-results').hide();
+        $('.col-md-12').hide();
 
         //New Form Post
         $('.form-post').submit(function(event) {
             event.preventDefault();
             $('.container-user-upload-new-post').hide();
             $('.container-user-post-results').show();
+
             var data = {
                 image: $('#url').data('url'),
                 user: $('#user').val(),
                 title: $('#title').val(),
-                description: $('#description').val(),
+                artist: $('#artist').val(),
                 recordstore: $('#recordstore').val()
             }
 
@@ -138,13 +151,13 @@ $(function() {
         event.preventDefault();
         var self = $(this);
         jQuery.ajax({
-            // /blah/blah/dah query string!!! ?key=value
             url: '/posts/' + this.id + '?token=' + myToken || localStorage.getItem('token'),
             type: 'DELETE',
             success: function(data) {
                 // this has "function" connotations
                 console.log(this, self);
                 self.parent().parent().remove();
+                location.reload();
 
 
             }
@@ -154,20 +167,18 @@ $(function() {
 
     //edit posts
     $('body').on('click', '.btn-edit', function(event) {
-        // $('#url').data('edit-url') // more code review// 
+        $('#url').data('edit-url');
         // Prepopulate the form fields.
         var self = this;
-        console.log(self.id);
+    /*    console.log(self.id);*/
         jQuery.ajax({
-            //this route works but returns an error, something went awry
             url: '/posts/' + self.id + '?token=' + myToken || localStorage.getItem('token'),
             //this code returns no error but does not pre-fill form with data from orginal post
             /*url: '/posts?token=' + myToken + this.id || localStorage.getItem('token'),*/
             type: 'GET',
             success: function(data) {
-                $('#edit-user').val(data.user);
+                $('#edit-artist').val(data.artist);
                 $('#edit-title').val(data.title);
-                $('#edit-description').val(data.description);
                 $('#edit-recordstore').val(data.recordstore);
                 $('#image-preview').attr('src', data.image);
                 // store the id here as an HTML 5 Data attribute!!!!
@@ -193,9 +204,8 @@ $(function() {
             type: 'PUT',
             data: {
                 image: $('#edit-url').data('edit-url'),
-                user: $('#edit-user').val(),
                 title: $('#edit-title').val(),
-                description: $('#edit-description').val(),
+                artist: $('#edit-artist').val(),
                 recordstore: $('#edit-recordstore').val()
             },
             success: function(data) {
@@ -221,6 +231,8 @@ $(function() {
 
 
             $('#url').data('url', imageUrl);
+            $('#image-preview-post').attr('src', imageUrl);
+            $('#uploaded').hide();
             console.log(imageUrl);
         });
 
@@ -258,7 +270,7 @@ $(function() {
 
             $('#edit-url').data('edit-url', imageUrl);
             $('#image-preview').attr('src', imageUrl);
-            console.log(imageUrl);
+            $('#edit-uploaded').hide();
         });
 
     //Update posts - sends data from post to server
