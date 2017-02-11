@@ -58,13 +58,26 @@ img.on-hover:hover {
 
 /*Give buttons a Z index*/
 
-.alert {
+.alert, .alert-login{
     width: 50%;
     display: inline-block;
     margin-top: 20px;
 }
 
-.row .alert {
+.row .alert{
+    background-color: #BF360C;
+    border-color: #BF360C;
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.alert-login {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+.row .alert-login{
     background-color: #BF360C;
     border-color: #BF360C;
     color: white;
@@ -198,26 +211,6 @@ p {
 
 /* styles for login and register */
 
-
-/*.container-login-register{
-    margin-top: 3rem;
-    text-align: center;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-}
-*/
-
-
-/*.form-control, #email, #password{
-    width: 25%;
-    height: 2.5rem;
-    padding: .25rem 1rem;
-    border: 1px solid white;
-    border-radius: .35rem;
-    margin: 1rem;
-    display: inline;
-}*/
-
 .login-button {
     display: inline-block;
     margin: 0 5px;
@@ -231,14 +224,6 @@ p {
     text-transform: uppercase;
     -moz-border-radius: 0;
     border-radius: 0;
-    /*padding: .4em 2em .4em 2em;
-    margin-top: 1.8rem;
-    margin-left: 1rem;
-    border: 1px #3B3737;
-    border-radius: .6rem;
-    background-color: #6C7068;
-    color: white;
-    font-size: 1.7rem;*/
 }
 
 .register-button {
@@ -295,14 +280,6 @@ p {
 }
 
 
-/*.center-title h2 {
-    text-align: left;
-    margin-left: 2rem;
-    padding-bottom: 7rem;
-    font-family: 'Monoton';
-    font-size: 4.3rem;
-}*/
-
 .form-group-upload {
     vertical-align: middle;
 }
@@ -314,41 +291,7 @@ p {
 
 /* General */
 
-
-/*#logout-top {
-    float: right;
-    margin-right: 4rem;
-    font-size: .6em;
-    padding: 14px 19px;
-    background: none;
-    border: 1px solid black;
-    font-weight: 500;
-    color: black;
-    text-transform: uppercase;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0
-}
-
-
-#new-top {
-    float: right;
-    margin-right: 2rem;
-    font-size: .6em;
-    margin: 0 5px;
-    padding: 14px 19px;
-    background-color: #212121;
-   
-    border: 1px solid black;
-    font-weight: 500;
-    color: white;
-    text-transform: uppercase;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0
-}*/
-
-.alert-warning {
+.alert-warning{
     display: none;
 }
 

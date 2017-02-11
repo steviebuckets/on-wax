@@ -1,15 +1,9 @@
 $(function() {
 
-    /*$('.on-hover').hover(
-        function (){
-            $('p.image-posts').show();
-        })*/
-
     // once user is logged in
     let myToken = localStorage.getItem('token');
 
     if (myToken) {
-        /* $('.bg-image').toggleClass('toggle');*/
         $('.jumbotron').hide();
         $('.section-2').hide();
         $('.container-login-register').hide();
@@ -36,7 +30,6 @@ $(function() {
         });
     } else {
 
-        /* $('.bg-image').toggleClass('toggle');*/
         $('.navbar').hide();
         $('.container-header').show();
         $('.container-login-register').show();
@@ -49,15 +42,12 @@ $(function() {
         event.preventDefault();
         var email = $('#email').val();
         var password = $('#password').val();
-        //add var for object ID below?
-        /*var blogPosts = $('.container-user-post-results').val();*/
         $.ajax({
             url: '/login',
             method: 'POST',
             data: {
                 email: email,
                 password: password
-                    /*blogPosts: BlogPost*/
             }
         }).done(function(response) {
             console.log(response);
@@ -70,6 +60,7 @@ $(function() {
             location.reload();
 
         }).fail(function(response) {
+            $('.alert-login').removeClass('hidden');
             console.log(response);
         });
     });
@@ -111,7 +102,6 @@ $(function() {
         }).fail(function(response) {
             $('.alert').removeClass('hidden');
             console.log(response);
-            /* location.reload();*/
 
         });
 
@@ -154,7 +144,6 @@ $(function() {
             url: '/posts/' + this.id + '?token=' + myToken || localStorage.getItem('token'),
             type: 'DELETE',
             success: function(data) {
-                // this has "function" connotations
                 console.log(this, self);
                 self.parent().parent().remove();
                 location.reload();
@@ -170,25 +159,18 @@ $(function() {
         $('#url').data('edit-url');
         // Prepopulate the form fields.
         var self = this;
-    /*    console.log(self.id);*/
         jQuery.ajax({
             url: '/posts/' + self.id + '?token=' + myToken || localStorage.getItem('token'),
-            //this code returns no error but does not pre-fill form with data from orginal post
-            /*url: '/posts?token=' + myToken + this.id || localStorage.getItem('token'),*/
             type: 'GET',
             success: function(data) {
                 $('#edit-artist').val(data.artist);
                 $('#edit-title').val(data.title);
                 $('#edit-recordstore').val(data.recordstore);
                 $('#image-preview').attr('src', data.image);
-                // store the id here as an HTML 5 Data attribute!!!!
                 $('#edit-post').data('id', self.id);
             }
         });
 
-        // end of prepopulate
-
-        // hide other stuff
         $('.container-user-edit-post').show();
         $('.container-user-post-results').hide();
     });
@@ -272,28 +254,5 @@ $(function() {
             $('#image-preview').attr('src', imageUrl);
             $('#edit-uploaded').hide();
         });
-
-    //Update posts - sends data from post to server
-    /*function editAddData(data) {
-        $.ajax({
-            url: '/posts?token=' + myToken,
-
-            method: 'PUT',
-            data: data,
-
-            success: function(responseData, status, jqXHR) {
-                console.log(responseData);
-
-                var div_data =
-                    '<div class="col-md-4"><img src="' + responseData.image + '"><br/>' + responseData.title + "<br/> " + responseData.recordstore + "<br/>" + responseData.description + "<br/>" + responseData.user + "<br/>" + responseData.created + "</div>";
-
-                $('.row').append(div_data);
-            },
-            error: function(jqXHR, status) {
-                console.log(jqXHR);
-                alert('fail' + status.code);
-            }
-        });
-    }*/
 
 });
