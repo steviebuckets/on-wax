@@ -110,36 +110,18 @@ app.get('/users', (req, res) => {
 
 /// anything below is "PROTECTED"/// anything below is "PROTECTED"
 app.get('/posts', (req, res) => {
-    let token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
+    User.findById(req.decoded.id, (err, user) => {
+        res.json(
+            user.blogPosts.sort((prev, next) => {
+                return new Date(next.created) - new Date(prev.created);
 
+            })
+            /* .find().populate({sort: {created_at: -1}})*/
+            /*  .populate({path: 'blogPosts', options{sort:{'created_at': -1}}})
+                     /*   .sort({created: -1});*/
+        );
 
-
-    if (token) {
-        jwt.verify(token, secret, (error, decoded) => {
-            if (error) {
-                return res.json({ success: false, message: 'failed to authenticate token.' });
-            } else {
-
-                User.findById(decoded.id, (err, user) => {
-
-
-                    req.decoded = decoded;
-
-                    res.json(
-                        user.blogPosts
-                    );
-
-                })
-
-            }
-
-        });
-    } else {
-
-
-    }
-
-
+    });
 
 });
 
@@ -154,7 +136,7 @@ app.get('/posts/:id', (req, res) => {
             });
 
         } else {
-            /* res.status(404).json({ message: 'Post not found, cannot be updated' })*/
+             res.status(404).json({ message: 'Post not found, cannot be updated' })
         }
 
 
@@ -195,15 +177,25 @@ app.post('/posts', (req, res) => {
 //put/update
 app.put('/posts/:id', (req, res) => {
     User.findById(req.decoded.id, (err, user) => {
+
         var blogPost = user.blogPosts.id(req.params.id);
         if (blogPost) {
 
-            blogPost.image = req.body.image
-                // or image: req.body.image;
-            blogPost.title = req.body.title;
-            blogPost.recordstore = req.body.recordstore;
-            blogPost.artist = req.body.artist;
+            if (req.body.image) {
+                blogPost.image = req.body.image
+            }
+            if (req.body.title) {
+
+                blogPost.title = req.body.title
+            }
+            if (req.body.recordstore) {
+                blogPost.recordstore = req.body.recordstore
+            }
+            if (req.body.artist) {
+                blogPost.artist = req.body.artist
+            }
             user.save((err) => {
+
                 if (err) res.status(404).json({ message: 'Post did not update' });
                 res.json({});
             });
