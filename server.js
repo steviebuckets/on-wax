@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config({ silent: true });
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,7 +14,8 @@ const morgan = require('morgan');
 
 mongoose.Promise = global.Promise;
 
-const { PORT, DATABASE_URL } = require('./config');
+const { PORT } = require('./config');
+
 const BlogPost = require('./models').BlogPost;
 const User = require('./models').User;
 const bcrypt = require('bcrypt-nodejs');
@@ -110,18 +113,22 @@ app.get('/users', (req, res) => {
 
 /// anything below is "PROTECTED"/// anything below is "PROTECTED"
 app.get('/posts', (req, res) => {
-    User.findById(req.decoded.id, (err, user) => {
-        res.json(
-            user.blogPosts.sort((prev, next) => {
-                return new Date(next.created) - new Date(prev.created);
+    if (User) {
 
-            })
-            /* .find().populate({sort: {created_at: -1}})*/
-            /*  .populate({path: 'blogPosts', options{sort:{'created_at': -1}}})
-                     /*   .sort({created: -1});*/
-        );
+        User.findById(req.decoded.id, (err, user) => {
+            console.log(err)
+            res.json(
+                user.blogPosts.sort((prev, next) => {
+                    return new Date(next.created) - new Date(prev.created);
 
-    });
+                })
+                /* .find().populate({sort: {created_at: -1}})*/
+                /*  .populate({path: 'blogPosts', options{sort:{'created_at': -1}}})
+                         /*   .sort({created: -1});*/
+            );
+
+        });
+    }
 
 });
 
@@ -136,7 +143,7 @@ app.get('/posts/:id', (req, res) => {
             });
 
         } else {
-             res.status(404).json({ message: 'Post not found, cannot be updated' })
+            res.status(404).json({ message: 'Post not found, cannot be updated' })
         }
 
 
@@ -236,7 +243,8 @@ let server;
 //this function connects to our databse, then starts server
 function runServer() {
     return new Promise((resolve, reject) => {
-        mongoose.connect(DATABASE_URL, err => {
+
+        mongoose.connect(process.env.DATABASE_URL, err => {
             if (err) {
                 return reject(err);
             }
