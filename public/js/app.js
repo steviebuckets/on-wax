@@ -209,7 +209,7 @@ $(function() {
 
             var version = data.result.version;
             var public_id = data.result.public_id;
-            var imageUrl = "https://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
+            var imageUrl = "//res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
 
             $('#url').data('url', imageUrl);
@@ -247,7 +247,7 @@ $(function() {
 
             var version = data.result.version;
             var public_id = data.result.public_id;
-            var imageUrl = "https://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
+            var imageUrl = "//res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
 
             $('#edit-url').data('edit-url', imageUrl);
