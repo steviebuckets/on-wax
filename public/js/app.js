@@ -180,7 +180,7 @@ $(function() {
         var self = this;
         console.log(this.id);
         var url = '/posts/' + $('.edit-post').data('id') + '?token=' + myToken || localStorage.getItem('token');
-        console.log(url);
+        
         jQuery.ajax({
             url: url,
             type: 'PUT',
