@@ -209,7 +209,7 @@ $(function() {
 
             var version = data.result.version;
             var public_id = data.result.public_id;
-            var imageUrl = "http://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
+            var imageUrl = "HTTPS://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
 
             $('#url').data('url', imageUrl);
