@@ -9,7 +9,7 @@
     "blueimp-md5": "^2.6.0",
     "body-parser": "^1.16.1",
     "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
+    "chai-https": "^3.0.0",
     "cloudinary": "*",
     "connect-multiparty": "^2.0.0",
     "dotenv": "^4.0.0",
