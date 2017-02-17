@@ -209,7 +209,7 @@ $(function() {
 
             var version = data.result.version;
             var public_id = data.result.public_id;
-            var imageUrl = "https://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
+            var imageUrl = "http://res.cloudinary.com/dbkrpg9qe/image/upload/v" + version + "/" + public_id + ".png";
 
 
             $('#url').data('url', imageUrl);
@@ -234,7 +234,7 @@ $(function() {
                 $('.row').append(div_data);
             },
             error: function(jqXHR, status) {
-                console.log(jqXHR);
+                
                 alert('fail' + status.code);
             }
         });
