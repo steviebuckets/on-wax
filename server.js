@@ -122,9 +122,6 @@ app.get('/posts', (req, res) => {
                     return new Date(next.created) - new Date(prev.created);
 
                 })
-                /* .find().populate({sort: {created_at: -1}})*/
-                /*  .populate({path: 'blogPosts', options{sort:{'created_at': -1}}})
-                         /*   .sort({created: -1});*/
             );
 
         });
