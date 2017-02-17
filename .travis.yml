@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy: fierce-journey-96916
+  provider: heroku
+  api_key:
+    secure: bWwmDHapfiuj+IcQbHK67L/1SRHI+XNetw8uhOQbq8s3y76RAHsR6dNqtDE3MDZ9QOkOlTUzEarxiksjKEh6JELNx5+h47/+NmKiQ3OlG6fK5RcdfXEEDl5W470qN6Wy5rY0vw5qs54aj61f6Cbd0Y5I+xfLQeIBx1fSmkdni5Q2/lg6H5V5wz8HZ489LPE3cOJlGPkrFVae0Upwyk+SFIc2aTtqlZwu7DHlGCUZ7XoSyQM/wL0ndceeDcnyXRmc5MMX6RqrvOeyjMBm+Hmf0zoBenMdnK053LJvyEwHUZzvSqktZY5OxOrgVO2K6fHW5ACXSK0Vpp8vBBT3jxJv/Yo95fe0E+09pvaf+qlFOtCzMZa2KbYpkQ6ay1G2il6v7SpJvQrZr5l7J20Sb9Hprptl2GOQ+9XNQxvGUm0jnXiEfUoHTb27JY00qXwfYdHVOkMJ9oDuA6QnRu/LU+RpIByZzIZr1rjBu+qLznvvdl7iiOh7d2wlijysM7Yju+0wdFXcsUpGsggYh6jATEK8C7caOXxk5WiR0iUS2RlstuOqviHs4PGhGLVFKai437Ay5bxnVNTnUIvDnqnVOuvEDZedCFISnJmCBjGCs6qwfpSWhaN9vciQ+LrovE9Hj+gDyqOu5ZO0k7Lq5VXk3xwdxodX+Hv4sLF1YUTDbsRkA5M=
+  app: fierce-journey-96916
+  on:
+    repo: steviebuckets/on-wax

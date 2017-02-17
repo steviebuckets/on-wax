@@ -178,9 +178,9 @@ $(function() {
     $('body').on('submit', '.edit-post', function(event) {
         event.preventDefault();
         var self = this;
-        
+        console.log(this.id);
         var url = '/posts/' + $('.edit-post').data('id') + '?token=' + myToken || localStorage.getItem('token');
-        
+        console.log(url);
         jQuery.ajax({
             url: url,
             type: 'PUT',
