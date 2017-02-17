@@ -79,6 +79,14 @@ app.post('/register', (req, res) => {
 
 /// anything above is "NOT PROTECTED"
 
+app.use(function (req, res, next){
+  if (req.headers['x-forwarded-proto'] === 'https') {
+    res.redirect('http://' + req.hostname + req.url);
+  } else {
+    next();
+  }
+});
+
 app.use((req, res, next) => {
     let token = req.body.token || req.query.token || req.params['token'] || req.headers['x-access-token'];
     if (token) {
