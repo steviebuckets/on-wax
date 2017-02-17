@@ -23,7 +23,6 @@ const app = express();
 /*app.use(morgan('common'));*/
 
 
-
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,7 +44,6 @@ app.post('/login', (req, res) => {
             res.json({ success: false, message: 'Wrong password' });
         } else {
             let myToken = jwt.sign({ email: user.email, id: user._id }, secret, { expiresIn: "24h" });
-            /*console.log(user, err);*/
             res.json({
                 success: true,
                 message: 'Enjoy your token ' + myToken,
