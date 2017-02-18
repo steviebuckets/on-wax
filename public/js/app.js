@@ -156,9 +156,10 @@ $(function() {
 
     //edit posts
     $('body').on('click', '.btn-edit', function(event) {
-        $('#url').data('edit-url');
+       /* $('#url').data('edit-url');*/
         // Prepopulate the form fields.
         var self = this;
+        console.log('this log', '/posts/' + self.id + '?token=' + myToken || localStorage.getItem('token'))
         jQuery.ajax({
             url: '/posts/' + self.id + '?token=' + myToken || localStorage.getItem('token'),
             type: 'GET',

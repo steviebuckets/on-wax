@@ -49,7 +49,7 @@ app.post('/login', (req, res) => {
                 message: 'Enjoy your token ' + myToken,
                 token: myToken
             });
-            console.log(myToken);
+            /*console.log(myToken);*/
         }
 
     });
@@ -162,7 +162,7 @@ app.post('/posts', (req, res) => {
     });
 
     User.findById(req.decoded.id, (err, user) => {
-        console.log('user', user);
+       /* console.log('user', user);*/
 
         user.blogPosts.push({
             image: req.body.image,
@@ -184,6 +184,7 @@ app.put('/posts/:id', (req, res) => {
 
         var blogPost = user.blogPosts.id(req.params.id);
         if (blogPost) {
+            console.log(req.body)
 
             if (req.body.image) {
                 blogPost.image = req.body.image
@@ -199,6 +200,7 @@ app.put('/posts/:id', (req, res) => {
                 blogPost.artist = req.body.artist
             }
             user.save((err) => {
+                console.log(err)
 
                 if (err) res.status(404).json({ message: 'Post did not update' });
                 res.json({});
@@ -246,7 +248,7 @@ function runServer() {
                 return reject(err);
             }
             server = app.listen(PORT, () => {
-                    console.log(`Your app is listening on port ${PORT}`);
+                   /* console.log(`Your app is listening on port ${PORT}`);*/
                     resolve();
                 })
                 .on('error', err => {
@@ -261,7 +263,7 @@ function runServer() {
 function closeServer() {
     return mongoose.disconnect().then(() => {
         return new Promise((resolve, reject) => {
-            console.log('Closing server');
+         /*   console.log('Closing server');*/
             server.close(err => {
                 if (err) {
                     return reject(err);
