@@ -62,7 +62,7 @@ app.post('/register', (req, res) => {
     user.password = req.body.password;
     user.save((err) => {
         if (err) {
-            console.log(err);
+            console.log('err in 65', err);
             return res.status(500).json({ message: "User already exists" })
         }
         let myToken = jwt.sign({ email: user.email, id: user._id }, secret, { expiresIn: "24h" });
@@ -114,9 +114,8 @@ app.get('/users', (req, res) => {
 /// anything below is "PROTECTED"/// anything below is "PROTECTED"
 app.get('/posts', (req, res) => {
     if (User) {
-
         User.findById(req.decoded.id, (err, user) => {
-            console.log(err)
+            if (err) return res.sendStatus(400);
             res.json(
                 user.blogPosts.sort((prev, next) => {
                     return new Date(next.created) - new Date(prev.created);
@@ -153,16 +152,24 @@ app.get('/posts/:id', (req, res) => {
 app.post('/posts', (req, res) => {
     var name = new User({ user: req.body.email });
 
-    const requiredFields = ['image', 'title', 'recordstore', 'artist', 'user'];
+    const requiredFields = ['image', 'title', 'recordstore', 'artist'];
     // start for each func
-    requiredFields.some(field => {
+    //forEach used to be some - now causing problems
+    let someError = false;
+    let errorField = "";
+    requiredFields.forEach(field => {
+
         if (!(field in req.body && req.body[field])) {
-            return res.status(400).json({ message: `Must specify value for ${field}` });
-        } else return true;
+            someError = true;
+            errorField = field;
+        }         
     });
 
+    if (someError){
+        return res.status(400).json({ message: `Must specify value for ${errorField}` });
+    }
+
     User.findById(req.decoded.id, (err, user) => {
-       /* console.log('user', user);*/
 
         user.blogPosts.push({
             image: req.body.image,
@@ -170,11 +177,11 @@ app.post('/posts', (req, res) => {
             recordstore: req.body.recordstore,
             artist: req.body.artist
         });
-        user.save((err) => {
-            if (err) return res.json({});
-            res.json(user);
-        })
-    })
+        user.save( err => {
+            if (err) return res.sendStatus(400);
+            return res.json(user);                
+        });
+    });
 });
 
 

@@ -123,7 +123,6 @@ $(function() {
 
             var data = {
                 image: $('#url').data('url'),
-                user: $('#user').val(),
                 title: $('#title').val(),
                 artist: $('#artist').val(),
                 recordstore: $('#recordstore').val()
@@ -236,7 +235,7 @@ $(function() {
             },
             error: function(jqXHR, status) {
                 
-                alert('fail' + status.code);
+                alert('Missing Body of Post' + status.code);
             }
         });
     }
