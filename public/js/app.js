@@ -19,7 +19,9 @@ $(function() {
                 var d = new Date();
 
                 var div_data =
-                    '<div><img class="on-hover" src="' + data.image + '"><br/> <p class="image-posts">' + data.artist + "<br/>" + data.title + "<br/>" + data.recordstore + "<br/>" + d.toDateString() + '<br/><button id="' + data._id + '" type="button" s class="btn-delete btn-link">Delete</button><br/><button id="' + data._id + '" type="button" class="btn-edit btn-link">Edit</button></p></div>';
+                    '<div><p class="artist-info">' + data.artist + " - " + data.title + '</p>'
+                     + '<img class="on-hover" src="' + data.image + '"><br/>' + '<p class="date-info">' + data.recordstore + " - " + d.toDateString() + '</p>' + '<button id="' + data._id + '" type="button" s class="btn-delete btn-link">Delete</button><button id="' + data._id + '" type="button" class="btn-edit btn-link">Edit</button></p></div>';
+                                                                                                                                                                                            // <i class="fa fa-trash-o" aria-hidden="true"></i>
 
                 var $items = $('<div class="col-md-12"></div');
                 $items.append(div_data)
