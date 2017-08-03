@@ -20,9 +20,10 @@ $(function() {
 
                 var div_data =
                     '<div><p class="artist-info">' + data.artist + " - " + data.title + '</p>'
-                     + '<img class="on-hover" src="' + data.image + '"><br/>' + '<p class="date-info">' + data.recordstore + " - " + d.toDateString() + '</p>' + '<button id="' + data._id + '" type="button" s class="btn-delete btn-link">Delete</button><button id="' + data._id + '" type="button" class="btn-edit btn-link">Edit</button></p></div>';
-                                                                                                                                                                                            // <i class="fa fa-trash-o" aria-hidden="true"></i>
-
+                     + '<img class="on-hover" src="' + data.image + '"><br/>' + '<p class="date-info">' + data.recordstore + " - " + d.toDateString() + '</p>'
+                      + '<i class="fa fa-trash-o" id="' + data._id + '" style="color:black" aria-hidden="true"></i>' + '<i class="fa fa-pencil" id="' + data._id + '" style="color:black" aria-hidden="true"></i></p></div>';
+                                    
+                    // '<i class="fa fa-pencil" id="' + data._id + '"aria-hidden="true"></i>'
                 var $items = $('<div class="col-md-12"></div');
                 $items.append(div_data)
 
@@ -138,7 +139,7 @@ $(function() {
     });
 
     //delete posts
-    $('body').on('click', '.btn-delete', function(event) {
+    $('body').on('click', '.fa-trash-o', function(event) {
         event.preventDefault();
         var self = $(this);
         jQuery.ajax({
@@ -156,7 +157,7 @@ $(function() {
 
 
     //edit posts
-    $('body').on('click', '.btn-edit', function(event) {
+    $('body').on('click', '.fa-pencil', function(event) {
        /* $('#url').data('edit-url');*/
         // Prepopulate the form fields.
         var self = this;

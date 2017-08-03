@@ -31,20 +31,21 @@
 }
 
 p.artist-info {
-    text-align: center;
+    text-align: left;
+    margin-left: 43.4em;
     padding-bottom: 2px;
     font-family: 'Roboto Mono', monospace;
     color: #262626;
     font-size: .9em;
     margin-right: 24em;
+    /*display: inline-block;*/
 }
 
 p.date-info {
-    text-align: center;
     font-family: 'Roboto Mono', monospace;
     color: #a6a6a6;
     font-size: .9em;
-    margin-right: 19em;
+    margin-right: 28em;
     display: inline-block;
    /* width: 20em;*/
     padding-top: 50px;
@@ -54,10 +55,16 @@ p.date-info {
     margin-top: -44px;
     margin-bottom: -80px;
 }
-/*.fa{
-    font-size: 28px;
+.fa-trash-o{
+    cursor: pointer;
+    font-size: 1.2em;
+    padding-right: 1.5em;
 }
 
+.fa-pencil {
+    cursor: pointer;
+    font-size: 1.2em;
+}
 
 /*p.image-posts {
     background-color: black;
@@ -71,7 +78,7 @@ p.date-info {
     top: 22px;
     left: 750px;
     opacity: .5;
-}*/
+}
 
 
 
@@ -94,17 +101,6 @@ p.date-info {
     border-radius: 2px;
 }*/
 
-.btn-delete {
-   color: black;
-
-
-}
-
-.btn-edit {
-   color: black;
- 
-
-}
 
 /*new post button*/
 .btn-plus {
@@ -140,6 +136,15 @@ p.date-info {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0
+}
+
+.fa-file-image-o{
+    cursor: pointer;
+}
+.fa-sign-out{
+    cursor: pointer;
+    padding-right: 7em;
+    padding-left: 2.7em;
 }
 
 
