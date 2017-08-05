@@ -216,10 +216,26 @@ $(function() {
 
 
             $('#url').data('url', imageUrl);
-            $('#image-preview-post').attr('src', imageUrl);
-            $('#uploaded').hide();
+            $('.loader').show();
+            setTimeout(function() {
+                $('#image-preview-post').attr('src', imageUrl);
+                $('.loader').hide();
+            },1000)
+            
+            
             console.log(imageUrl);
-        });
+        }).bind('fileuploadprogress', function(e, data) {
+            $('#uploaded').hide();
+            var percentage = Math.round((data.loaded * 100.0) / data.total);
+            if(percentage === 100) {
+                // $(".loader").hide();
+            }
+        }).bind('fileuploadsend', function(e, data) {
+            $(".loader").show();
+        })
+
+
+
 
     //sends data from post to server
     function addData(data) {

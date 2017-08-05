@@ -9,6 +9,9 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./css/animate.css">
 <link rel="stylesheet" type="text/css" href="./css/main.css">
+<link href="http://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://hayageek.github.io/jQuery-Upload-File/4.0.10/jquery.uploadfile.min.js"></script>
 
 
 <head>
@@ -32,11 +35,11 @@
             <!--New Post Button-->
                 <!-- <i class="fa fa-plus fa-lg" id="new-top" aria-hidden="true"></i> -->
              <!--    <button type="button" class="btn btn-plus" value='hide/show' id="new-top">Post</button> -->
-                <i class="fa fa-file-image-o fa-lg" style="color:#424242" id="new-top" aria-hidden="true"></i>
+                <i class="fa fa-file-image-o fa-lg" style="color:black" id="new-top" aria-hidden="true"></i>
                 
                 <!--Logout Button-->
                 <!-- <i class="fa fa-minus fa-lg" id="logout-top" aria-hidden="true"></i> -->
-                <i class="fa fa-sign-out fa-lg" id="logout-top" style="color:#424242" aria-hidden="true"></i>
+                <i class="fa fa-sign-out fa-lg" id="logout-top" style="color:black" aria-hidden="true"></i>
                
 
             </ul>
@@ -115,8 +118,11 @@
                         <label>Image Upload<span class="require">*</span></label>
                         <img src="" id='image-preview-post'>
                         <div class="alert alert-warning">Don't like the photo? <a href="" class='change'>Change</a></div>
-                        <input type="file" name="file" id="uploaded" />
+                        
+                        <input type="file" name="file" id="uploaded">
+                        <div class="loader" style="display: none"></div>
                         <input type="hidden" name="image" id="url" data-url="">
+                        <img src="" id='preview'>
                     </div>
                     <div class="form-group">
                         <p><span class="require">*</span> - required fields</p>
