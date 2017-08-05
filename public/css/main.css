@@ -1,6 +1,6 @@
 .navbar-brand h1 {
-    color: black;
-    font-family: 'Monoton';
+    color: #00251a;
+    font-family: 'Monoton', cursive;
     font-size: 4.1rem;
     margin-left: -47px;
 }
@@ -10,7 +10,7 @@
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid #00251a;
-  border-bottom: 16px solid #39796b;
+  border-bottom: 16px solid #b0ff57;
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite;
@@ -55,23 +55,25 @@ p.artist-info {
     margin-left: 43.4em;
     padding-bottom: 2px;
     font-family: 'Roboto Mono', monospace;
-    color: #262626;
+    color: #00251a;
     font-size: .9em;
     margin-right: 24em;
     /*display: inline-block;*/
 }
 
 p.date-info {
+    text-align: left;
     font-family: 'Roboto Mono', monospace;
     color: #a6a6a6;
     font-size: .9em;
-    margin-right: 28em;
+    margin-right: 26.5em;
     display: inline-block;
    /* width: 20em;*/
     padding-top: 50px;
 }
 
 .on-hover {
+    display: inline-block;
     margin-top: -44px;
     margin-bottom: -80px;
 }
@@ -82,8 +84,10 @@ p.date-info {
 }
 
 .fa-pencil {
+    display: inline-block;
     cursor: pointer;
     font-size: 1.2em;
+    padding-right: 1em;
 }
 
 /*p.image-posts {
@@ -208,7 +212,8 @@ div.jumbotron {
     height: 100vh;
     margin: 0px;
     text-align: center;
-    background-image: url(/images/cover.jpg);
+    background-color: #00251a;
+   /* background-image: url(/images/cover.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -398,6 +403,8 @@ p {
 
 #uploaded {
     vertical-align: middle;
+    margin: 0 auto;
+    padding-top: .8em;
 }
 
 
@@ -516,7 +523,13 @@ div.row .col-md-12 {
 }
 
 
+
 }
+
+/*new styles*/
+
+
+
 
 @media only screen
 and (max-device-width: 412px) {
@@ -546,6 +559,8 @@ div.section-2 .actions .login-button, .register-button {
 }
 
 
+
+
 }
 @media only screen 
 and (max-width: 400px) {
@@ -554,25 +569,73 @@ div.container-user-upload-new-post{
 }
 
  img{
-    width: 400px;
+    width: 360px;
 }
 
-img.on-hover {
+/*img.on-hover {
     position: inherit;
+}*/
+
+p.artist-info {
+    text-align: left;
+    font-size: .9em;
+    margin-left: -2.5em;
+    margin-right: 2.2em;
+    display: inline-block;
+   /* margin-left: 43.4em;*/
+    /*padding-bottom: 2px;*/
+  /*  font-size: .9em;*/
+    /*margin-right: 24em;*/
+    /*display: inline-block;*/
 }
 
-p.image-posts {
-    position: inherit;
-    z-index: 1;
-    font-size: 20px;
-    font-family: 'Lato', sans-serif;
-    right: 1px;
-    color: yellow;
-  
+p.date-info {
+    text-align: left;
+    margin-left: -1em;
+    margin-right: .2em;
+    font-size: .9em;
+    display: inline-block;
 }
 
-p {
+.fa-trash-o {
+    padding-left: 6em;
+    display: inline-block;
+    text-align: right;
+}
+.fa-pencil {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    text-align: right;
+}
+.fa-file-image-o, .fa-sign-out {
+margin: 0 auto;
+font-size: 25px;
+text-align: center;
+padding-top: .7em;
+}
+
+.fa-sign-out {
+    padding-right: 0;
+}
+.container-user-upload-new-post{
+    margin: 0 auto;
+}
+.container-user-edit-post, .form-group{
+    margin: 0 auto;
+}
+.container-user-edit-post{
+   width: 100%;
+}
+}
+
+.container-user-edit-post h1, .form-group {
     text-align: center;
 }
 
+.container-user-edit-post .btn-primary {
+  color: white;
+  background-color: black;
+  border-color: black;
+  border-radius: 4px;
 }

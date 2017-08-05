@@ -21,7 +21,7 @@ $(function() {
                 var div_data =
                     '<div><p class="artist-info">' + data.artist + " - " + data.title + '</p>'
                      + '<img class="on-hover" src="' + data.image + '"><br/>' + '<p class="date-info">' + data.recordstore + " - " + d.toDateString() + '</p>'
-                      + '<i class="fa fa-trash-o" id="' + data._id + '" style="color:black" aria-hidden="true"></i>' + '<i class="fa fa-pencil" id="' + data._id + '" style="color:black" aria-hidden="true"></i></p></div>';
+                      + '<i class="fa fa-trash-o" id="' + data._id + '" style="color:#00251a" aria-hidden="true"></i>' + '<i class="fa fa-pencil" id="' + data._id + '" style="color:#00251a" aria-hidden="true"></i></p></div>';
                                     
                     // '<i class="fa fa-pencil" id="' + data._id + '"aria-hidden="true"></i>'
                 var $items = $('<div class="col-md-12"></div');
