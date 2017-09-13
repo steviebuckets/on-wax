@@ -212,8 +212,8 @@ div.jumbotron {
     height: 100vh;
     margin: 0px;
     text-align: center;
-    background-color: #00251a;
-   /* background-image: url(/images/cover.jpg);*/
+    /*background-color: #00251a;*/
+    background-image: url('../images/cover.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
